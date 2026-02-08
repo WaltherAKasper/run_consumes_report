@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1200">
+  <title>Raid Consume Report</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Fira+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      width: 1200px;
+      background: linear-gradient(155deg, #0a0e14 0%, #131922 40%, #0f1419 100%);
+      font-family: 'Fira Sans', sans-serif;
+      color: #e6edf3;
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 50% at 15% 20%, rgba(212, 175, 55, 0.07) 0%, transparent 50%),
+        radial-gradient(ellipse 60% 40% at 85% 75%, rgba(140, 130, 120, 0.05) 0%, transparent 50%),
+        radial-gradient(ellipse 100% 60% at 50% 110%, rgba(80, 60, 40, 0.08) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .container {
+      padding: 32px 44px 48px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 20px;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .guild-icons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .guild-icon-wrapper {
+      position: relative;
+      width: 56px;
+      height: 56px;
+    }
+
+    .guild-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      object-fit: cover;
+      filter: drop-shadow(0 4px 12px rgba(0,0,0,0.5));
+      -webkit-mask-image: radial-gradient(circle, black 55%, transparent 72%);
+      mask-image: radial-gradient(circle, black 55%, transparent 72%);
+    }
+
+    .guild-icon-glow {
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      filter: blur(8px);
+      z-index: -1;
+    }
+
+    .title-block {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .guild-names {
+      font-family: 'Cinzel', serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: #f0f6fc;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 16px rgba(212, 175, 55, 0.25);
+    }
+
+    .guild-names .separator {
+      color: #4a5568;
+      margin: 0 6px;
+      font-weight: 400;
+    }
+
+    .raid-subtitle {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .raid-badge {
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.2) 0%, rgba(139, 92, 246, 0.1) 100%);
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      padding: 3px 10px;
+      border-radius: 10px;
+      font-size: 10px;
+      font-weight: 600;
+      color: #a78bfa;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .date-text {
+      font-size: 12px;
+      color: #586069;
+    }
+
+    .server-badge {
+      background: linear-gradient(135deg, rgba(34, 197, 94, 0.15) 0%, rgba(34, 197, 94, 0.08) 100%);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #4ade80;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .stats-row {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .stat-card {
+      flex: 1;
+      background: rgba(22, 27, 34, 0.7);
+      border: 1px solid rgba(48, 54, 61, 0.6);
+      border-radius: 12px;
+      padding: 14px 18px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+    }
+
+    .stat-card.gold::before { background: linear-gradient(90deg, #ffd700, #f59e0b, #ffd700); }
+    .stat-card.players::before { background: linear-gradient(90deg, #3b82f6, #60a5fa, #3b82f6); }
+    .stat-card.deaths::before { background: linear-gradient(90deg, #ef4444, #f87171, #ef4444); }
+
+    .stat-label {
+      font-size: 10px;
+      color: #6e7681;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 6px;
+    }
+
+    .stat-value {
+      font-size: 26px;
+      font-weight: 700;
+      color: #f0f6fc;
+    }
+
+    .stat-value .g { color: #ffd700; }
+    .stat-value .s { color: #c0c0c0; }
+    .stat-value .c { color: #cd7f32; }
+
+    .main-content {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    .panel {
+      background: rgba(22, 27, 34, 0.6);
+      border: 1px solid rgba(48, 54, 61, 0.5);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .section-title {
+      font-size: 11px;
+      color: #6e7681;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    .highlight-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .highlight-card h3 {
+      font-size: 9px;
+      color: #6e7681;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 6px;
+    }
+
+    .highlight-value {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .highlight-value .name { color: #58a6ff; }
+    .highlight-value .detail { color: #6e7681; font-size: 12px; font-weight: 400; }
+
+    .fun-stats {
+      padding: 12px 14px;
+      background: rgba(59, 130, 246, 0.06);
+      border: 1px solid rgba(59, 130, 246, 0.15);
+      border-radius: 10px;
+    }
+
+    .fun-stats h3 {
+      font-size: 9px;
+      color: #60a5fa;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 8px;
+    }
+
+    .fun-stat-item {
+      font-size: 12px;
+      color: #8b949e;
+      margin-bottom: 4px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .fun-stat-item:last-child { margin-bottom: 0; }
+    .fun-stat-item strong { color: #e6edf3; }
+
+    .sunder-race.full {
+      margin-top: 12px;
+    }
+
+    .sunder-race {
+      background: rgba(22, 27, 34, 0.6);
+      border: 1px solid rgba(234, 179, 8, 0.2);
+      border-radius: 12px;
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sunder-race h3 {
+      font-size: 11px;
+      color: #eab308;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+
+    .sunder-subtitle {
+      font-size: 9px;
+      color: #6e7681;
+      font-weight: 500;
+      text-transform: lowercase;
+    }
+
+    .sunder-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .sunder-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sunder-medal {
+      width: 22px;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    .sunder-medal.medal-1 { filter: drop-shadow(0 0 4px rgba(255, 215, 0, 0.5)); }
+    .sunder-medal.medal-2 { filter: drop-shadow(0 0 4px rgba(192, 192, 192, 0.4)); }
+    .sunder-medal.medal-3 { filter: drop-shadow(0 0 4px rgba(205, 127, 50, 0.4)); }
+
+    .sunder-name {
+      width: 90px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #e6edf3;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .sunder-bar-container {
+      flex: 1;
+      height: 16px;
+      background: rgba(48, 54, 61, 0.5);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .sunder-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #eab308 0%, #f59e0b 50%, #fbbf24 100%);
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(234, 179, 8, 0.3);
+    }
+
+    .sunder-count {
+      width: 40px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #fbbf24;
+      text-align: right;
+    }
+
+    .table-card {
+      background: rgba(22, 27, 34, 0.75);
+      border: 1px solid rgba(48, 54, 61, 0.6);
+      border-radius: 14px;
+      padding: 16px;
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+      table-layout: auto;
+    }
+
+    col.col-rank {
+      width: 4ch;
+    }
+
+    col.col-name {
+      width: auto;
+    }
+
+    col.col-stat {
+      width: 12ch;
+    }
+
+    th, td {
+      padding: 10px 8px;
+      text-align: left;
+      border-bottom: 1px solid rgba(48, 54, 61, 0.6);
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    th {
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-size: 10px;
+      color: #8b949e;
+      background: rgba(13, 17, 23, 0.85);
+    }
+
+    th.sortable {
+      cursor: pointer;
+      user-select: none;
+    }
+
+    th.sortable::after {
+      content: '⇅';
+      font-size: 9px;
+      margin-left: 6px;
+      color: rgba(139, 148, 158, 0.5);
+    }
+
+    th.sortable.sorted-asc::after {
+      content: '↑';
+      color: #60a5fa;
+    }
+
+    th.sortable.sorted-desc::after {
+      content: '↓';
+      color: #60a5fa;
+    }
+
+    td.num {
+      font-variant-numeric: tabular-nums;
+    }
+
+    td.stat-cell {
+      white-space: nowrap;
+      text-align: center;
+    }
+
+    tbody tr:nth-child(odd) {
+      background: rgba(22, 27, 34, 0.55);
+    }
+
+    tbody tr:hover {
+      background: rgba(56, 139, 253, 0.08);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 11px;
+      color: #e6edf3;
+      background: rgba(30, 41, 59, 0.7);
+      border: 1px solid rgba(71, 85, 105, 0.6);
+    }
+
+    .badge-total {
+      background: rgba(239, 68, 68, 0.15);
+      border-color: rgba(239, 68, 68, 0.35);
+      color: #fca5a5;
+    }
+
+    .badge-boss {
+      background: rgba(139, 92, 246, 0.15);
+      border-color: rgba(139, 92, 246, 0.35);
+      color: #c4b5fd;
+    }
+
+    .badge-trash {
+      background: rgba(56, 189, 248, 0.15);
+      border-color: rgba(56, 189, 248, 0.35);
+      color: #7dd3fc;
+    }
+
+    .badge-healthstone {
+      background: rgba(34, 197, 94, 0.15);
+      border-color: rgba(34, 197, 94, 0.35);
+      color: #86efac;
+    }
+
+    .badge-orange {
+      background: rgba(249, 115, 22, 0.18);
+      border-color: rgba(249, 115, 22, 0.4);
+      color: #fdba74;
+    }
+
+    .badge-gold {
+      background: rgba(245, 158, 11, 0.18);
+      border-color: rgba(245, 158, 11, 0.4);
+      color: #fcd34d;
+    }
+
+    .footer {
+      margin-top: 16px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(48, 54, 61, 0.4);
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+      color: #484f58;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="header-left">
+        <div class="guild-icons">
+          <div class="guild-icon-wrapper">
+            <div class="guild-icon-glow" style="background: radial-gradient(circle, rgba(212, 175, 55, 0.3) 0%, transparent 70%);"></div>
+            <img class="guild-icon" src="data:image/png;base64,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" alt="Dark Sun">
+          </div>
+          <div class="guild-icon-wrapper">
+            <div class="guild-icon-glow" style="background: radial-gradient(circle, rgba(200, 200, 200, 0.25) 0%, transparent 70%);"></div>
+            <img class="guild-icon" src="data:image/png;base64,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" alt="Knights Hospitaller">
+          </div></div>
+        <div class="title-block">
+          <div class="guild-names">Dark Sun<span class="separator">×</span>Knights Hospitaller</div>
+          <div class="raid-subtitle">
+            <span class="raid-badge">Naxxramas</span>
+            <span class="date-text">04 Feb 2026</span>
+          </div>
+        </div>
+      </div>
+      <div class="server-badge">Nordanaar</div>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-card gold">
+        <div class="stat-label">Total Raid Cost</div>
+        <div class="stat-value">
+          <span class="g">4563</span>g
+        </div>
+      </div>
+      <div class="stat-card players">
+        <div class="stat-label">Raiders</div>
+        <div class="stat-value">36</div>
+      </div>
+      <div class="stat-card deaths">
+        <div class="stat-label">Deaths</div>
+        <div class="stat-value">154</div>
+      </div>
+    </div>
+
+    <div class="main-content">
+      <div class="panel">
+        <div class="section-title">Highlights</div>
+        <div class="highlight-grid">
+          <div class="highlight-card">
+            <h3>💰 Big Spender</h3>
+            <div class="highlight-value">
+              <span class="name">Benig</span>
+              <span class="detail"> — 257g</span>
+            </div>
+          </div>
+          <div class="highlight-card">
+            <h3>💀 Most Deaths</h3>
+            <div class="highlight-value">
+              <span class="name">Morlitanan</span>
+              <span class="detail"> — 8 deaths</span>
+            </div>
+          </div>
+          <div class="highlight-card">
+            <h3>👑 Boss Deaths Leader</h3>
+            <div class="highlight-value">
+              <span class="name">Cezarica</span>
+              <span class="detail"> — 6 deaths</span>
+            </div>
+          </div>
+          <div class="highlight-card">
+            <h3>🗑️ Trash Deaths Leader</h3>
+            <div class="highlight-value">
+              <span class="name">Crunchydough</span>
+              <span class="detail"> — 4 deaths</span>
+            </div>
+          </div>
+          <div class="highlight-card">
+            <h3>🟢 Healthstone King</h3>
+            <div class="highlight-value">
+              <span class="name">Buttermllch</span>
+              <span class="detail"> — 12 used</span>
+            </div>
+          </div>
+          <div class="highlight-card">
+            <h3>🍊 Top Orange Consumer</h3>
+            <div class="highlight-value">
+              <span class="name">Benig</span>
+              <span class="detail"> — 93 used</span>
+            </div>
+          </div>
+          <div class="fun-stats">
+            <h3>📊 Raid Stats</h3>
+            <div class="fun-stat-item">
+              <span>Avg cost per raider</span>
+              <strong>127g</strong>
+            </div>
+            <div class="fun-stat-item">
+              <span>Zero-death raiders</span>
+              <strong>0/36</strong>
+            </div>
+          </div>
+          
+        <div class="sunder-race full">
+          <h3>⚔️ Sunder Race <span class="sunder-subtitle">(boss sunders)</span></h3>
+          <div class="sunder-list">
+            
+            <div class="sunder-row">
+              <span class="sunder-medal medal-1">🥇</span>
+              <span class="sunder-name">Yelena</span>
+              <div class="sunder-bar-container">
+                <div class="sunder-bar" style="width: 100%"></div>
+              </div>
+              <span class="sunder-count">303</span>
+            </div>
+            <div class="sunder-row">
+              <span class="sunder-medal medal-2">🥈</span>
+              <span class="sunder-name">Hitchslap</span>
+              <div class="sunder-bar-container">
+                <div class="sunder-bar" style="width: 19%"></div>
+              </div>
+              <span class="sunder-count">60</span>
+            </div>
+            <div class="sunder-row">
+              <span class="sunder-medal medal-3">🥉</span>
+              <span class="sunder-name">Vuxx</span>
+              <div class="sunder-bar-container">
+                <div class="sunder-bar" style="width: 16%"></div>
+              </div>
+              <span class="sunder-count">49</span>
+            </div>
+            <div class="sunder-row">
+              <span class="sunder-medal ">4</span>
+              <span class="sunder-name">Zulahachus</span>
+              <div class="sunder-bar-container">
+                <div class="sunder-bar" style="width: 15%"></div>
+              </div>
+              <span class="sunder-count">47</span>
+            </div>
+            <div class="sunder-row">
+              <span class="sunder-medal ">5</span>
+              <span class="sunder-name">Tankthespank</span>
+              <div class="sunder-bar-container">
+                <div class="sunder-bar" style="width: 10%"></div>
+              </div>
+              <span class="sunder-count">33</span>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="section-title">All Raiders</div>
+        <div class="table-card">
+          <table class="raid-table">
+            <colgroup>
+              <col class="col-rank">
+              <col class="col-name">
+              <col class="col-stat">
+              <col class="col-stat">
+              <col class="col-stat">
+              <col class="col-stat">
+              <col class="col-stat">
+              <col class="col-stat">
+            </colgroup>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th class="sortable" data-type="text">Raider</th>
+                <th class="sortable sorted-desc" data-type="number">Spend</th>
+                <th class="sortable" data-type="number">Deaths</th>
+                <th class="sortable" data-type="number">Boss</th>
+                <th class="sortable" data-type="number">Trash</th>
+                <th class="sortable" data-type="number">Healthstones</th>
+                <th class="sortable" data-type="number">Oranges</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+          <tr>
+            <td class="num" data-value="1">1</td>
+            <td class="player-name" data-value="benig">Benig</td>
+            <td class="num stat-cell" data-value="2568664"><span class="badge badge-gold">💰 257g</span></td>
+            <td class="num stat-cell" data-value="5"><span class="badge badge-total">💀 5</span></td>
+            <td class="num stat-cell" data-value="5"><span class="badge badge-boss">👑 5</span></td>
+            <td class="num stat-cell" data-value="0"><span class="badge badge-trash">🗑️ 0</span></td>
+            <td class="num stat-cell" data-value="0"><span class="badge badge-healthstone">🟢 0</span></td>
+            <td class="num stat-cell" data-value="93"><span class="badge badge-orange">🍊 93</span></td>
+          </tr>
+        
+          <tr>
+            <td class="num" data-value="2">2</td>
+            <td class="player-name" data-value="puupyspeller">Puupyspeller</td>
+            <td class="num stat-cell" data-value="2393942"><span class="badge badge-gold">💰 239g</span></td>
+            <td class="num stat-cell" data-value="5"><span class="badge badge-total">💀 5</span></td>
+            <td class="num stat-cell" data-value="2"><span class="badge badge-boss">👑 2</span></td>
+            <td class="num stat-cell" data-value="3"><span class="badge badge-trash">🗑️ 3</span></td>
+            <td class="num stat-cell" data-value="2"><span class="badge badge-healthstone">🟢 2</span></td>
+            <td class="num stat-cell" data-value="49"><span class="badge badge-orange">🍊 49</span></td>
+          </tr>
+        
+          <tr>
+            <td class="num" data-value="3">3</td>
+            <td class="player-name" data-value="vuxx">Vuxx</td>
+            <td class="num stat-cell" data-value="2117662"><span class="badge badge-gold">💰 212g</span></td>
+            <td class="num stat-cell" data-value="6"><span class="badge badge-total">💀 6</span></td>
+            <td class="num stat-cell" data-value="3"><span class="badge badge-boss">👑 3</span></td>
+            <td class="num stat-cell" data-value="3"><span class="badge badge-trash">🗑️ 3</span></td>
+            <td class="num stat-cell" data-value="7"><span class="badge badge-healthstone">🟢 7</span></td>
+            <td class="num stat-cell" data-value="12"><span class="badge badge-orange">🍊 12</span></td>
+          </tr>
+        
+          <tr>
+            <td class="num" data-value="4">4</td>
+            <td class="player-name" data-value="alyara">Alyara</td>
+            <td class="num stat-cell" data-value="1967071"><span class="badge badge-gold">💰 197g</span></td>
+            <td class="num stat-cell" data-value="4"><span class="badge badge-total">💀 4</span></td>
+            <td class="num stat-cell" data-value="3"><span class="badge badge-boss">👑 3</span></td>
+            <td class="num stat-cell" data-value="1"><span class="badge badge-trash">🗑️ 1</span></td>
+            <td class="num stat-cell" data-value="3"><span class="badge badge-healthstone">🟢 3</span></td>
+            <td class="num stat-cell" data-value="10"><span class="badge badge-orange">🍊 10</span></td>
+          </tr>
+        
+          <tr>
+            <td class="num" data-value="5">5</td>
+            <td class="player-name" data-value="crunchydough">Crunchydough</td>
+            <td class="num stat-cell" data-value="1887502"><span class="badge badge-gold">💰 189g</span></td>
+            <td class="num stat-cell" data-value="6"><span class="badge badge-total">💀 6</span></td>
+            <td class="num stat-cell" data-value="2"><span class="badge badge-boss">👑 2</span></td>
+            <td class="num stat-cell" data-value="4"><span class="badge badge-trash">🗑️ 4</span></td>
+            <td class="num stat-cell" data-value="1"><span class="badge badge-healthstone">🟢 1</span></td>
+            <td class="num stat-cell" data-value="68"><span class="badge badge-orange">🍊 68</span></td>
+          </tr>
+        
+          <tr>
+            <td class="num" data-value="6">6</td>
+            <td class="player-name" data-value="maluki">Maluki</td>
+            <td class="num stat-cell" data-value="1848235"><span class="badge badge-gold">💰 185g</span></td>
+            <td class="num stat-cell" data-value="4"><span class="badge badge-total">💀 4</span></td>
+            <td class="num stat-cell" data-value="3"><span class="badge badge-boss">👑 3</span></td>
+            <td class="num stat-cell" data-value="1"><span class="badge badge-trash">🗑️ 1</span></td>
+            <td class="num stat-cell" data-value="3"><span class="badge badge-healthstone">🟢 3</span></td>
+            <td class="num stat-cell" data-value="42"><span class="badge badge-orange">🍊 42</span></td>
+          </tr>
+        
+          <tr>
+            <td class="num" data-value="7">7</td>
+            <td class="player-name" data-value="tankthespank">Tankthespank</td>
+            <td class="num stat-cell" data-value="1770802"><span class="badge badge-gold">💰 177g</span></td>
+            <td class="num stat-cell" data-value="5"><span class="badge badge-total">💀 5</span></td>
+            <td class="num stat-cell" data-value="3"><span class="badge badge-boss">👑 3</span></td>
+            <td class="num stat-cell" data-value="2"><span class="badge badge-trash">🗑️ 2</span></td>
+            <td class="num stat-cell" data-value="7"><span class="badge badge-healthstone">🟢 7</span></td>
+            <td class="num stat-cell" data-value="6"><span class="badge badge-orange">🍊 6</span></td>
+          </tr>
+        
+          <tr>
+            <td class="num" data-value="8">8</td>
+            <td class="player-name" data-value="umbradyr">Umbradyr</td>
+            <td class="num stat-cell" data-value="1701570"><span class="badge badge-gold">💰 170g</span></td>
+            <td class="num stat-cell" data-value="5"><span class="badge badge-total">💀 5</span></td>
+            <td class="num stat-cell" data-value="3"><span class="badge badge-boss">👑 3</span></td>
+            <td class="num stat-cell" data-value="2"><span class="badge badge-trash">🗑️ 2</span></td>
+            <td class="num stat-cell" data-value="3"><span class="badge badge-healthstone">🟢 3</span></td>
+            <td class="num stat-cell" data-value="53"><span class="badge badge-orange">🍊 53</span></td>
+          </tr>
+        
+          <tr>
+            <td class="num" data-value="9">9</td>
+            <td class="player-name" data-value="yelena">Yelena</td>
+            <td class="num stat-cell" data-value="1671821"><span class="badge badge-gold">💰 167g</span></td>
+            <td class="num stat-cell" data-value="2"><span class="badge badge-total">💀 2</span></td>
+            <td class="num stat-cell" data-value="1"><span class="badge badge-boss">👑 1</span></td>
+            <td class="num stat-cell" data-value="1"><span class="badge badge-trash">🗑️ 1</span></td>
+            <td class="num stat-cell" data-value="1"><span class="badge badge-healthstone">🟢 1</span></td>
+            <td class="num stat-cell" data-value="6"><span class="badge badge-orange">🍊 6</span></td>
+          </tr>
+        
+          <tr>
+            <td class="num" data-value="10">10</td>
+            <td class="player-name" data-value="starscreamm">Starscreamm</td>
+            <td class="num stat-cell" data-value="1566199"><span class="badge badge-gold">💰 157g</span></td>
+            <td class="num stat-cell" data-value="3"><span class="badge badge-total">💀 3</span></td>
+            <td class="num stat-cell" data-value="1"><span class="badge badge-boss">👑 1</span></td>
+            <td class="num stat-cell" data-value="2"><span class="badge badge-trash">🗑️ 2</span></td>
+            <td class="num stat-cell" data-value="1"><span class="badge badge-healthstone">🟢 1</span></td>
+            <td class="num stat-cell" data-value="47"><span class="badge badge-orange">🍊 47</span></td>
+          </tr>
+        
+          <tr>
+            <td class="num" data-value="11">11</td>
+            <td class="player-name" data-value="zulahachus">Zulahachus</td>
+            <td class="num stat-cell" data-value="1555297"><span class="badge badge-gold">💰 156g</span></td>
+            <td class="num stat-cell" data-value="6"><span class="badge badge-total">💀 6</span></td>
+            <td class="num stat-cell" data-value="3"><span class="badge badge-boss">👑 3</span></td>
+            <td class="num stat-cell" data-value="3"><span class="badge badge-trash">🗑️ 3</span></td>
+            <td class="num stat-cell" data-value="9"><span class="badge badge-healthstone">🟢 9</span></td>
+            <td class="num stat-cell" data-value="16"><span class="badge badge-orange">🍊 16</span></td>
+          </tr>
+        
+          <tr>
+            <td class="num" data-value="12">12</td>
+            <td class="player-name" data-value="buttermllch">Buttermllch</td>
+            <td class="num stat-cell" data-value="1533493"><span class="badge badge-gold">💰 153g</span></td>
+            <td class="num stat-cell" data-value="3"><span class="badge badge-total">💀 3</span></td>
+            <td class="num stat-cell" data-value="2"><span class="badge badge-boss">👑 2</span></td>
+            <td class="num stat-cell" data-value="1"><span class="badge badge-trash">🗑️ 1</span></td>
+            <td class="num stat-cell" data-value="12"><span class="badge badge-healthstone">🟢 12</span></td>
+            <td class="num stat-cell" data-value="2"><span class="badge badge-orange">🍊 2</span></td>
+          </tr>
+        
+          <tr>
+            <td class="num" data-value="13">13</td>
+            <td class="player-name" data-value="heallios">Heallios</td>
+            <td class="num stat-cell" data-value="1469746"><span class="badge badge-gold">💰 147g</span></td>
+            <td class="num stat-cell" data-value="5"><span class="badge badge-total">💀 5</span></td>
+            <td class="num stat-cell" data-value="3"><span class="badge badge-boss">👑 3</span></td>
+            <td class="num stat-cell" data-value="2"><span class="badge badge-trash">🗑️ 2</span></td>
+            <td class="num stat-cell" data-value="3"><span class="badge badge-healthstone">🟢 3</span></td>
+            <td class="num stat-cell" data-value="46"><span class="badge badge-orange">🍊 46</span></td>
+          </tr>
+        
+          <tr>
+            <td class="num" data-value="14">14</td>
+            <td class="player-name" data-value="triskell">Triskell</td>
+            <td class="num stat-cell" data-value="1402957"><span class="badge badge-gold">💰 140g</span></td>
+            <td class="num stat-cell" data-value="7"><span class="badge badge-total">💀 7</span></td>
+            <td class="num stat-cell" data-value="3"><span class="badge badge-boss">👑 3</span></td>
+            <td class="num stat-cell" data-value="4"><span class="badge badge-trash">🗑️ 4</span></td>
+            <td class="num stat-cell" data-value="6"><span class="badge badge-healthstone">🟢 6</span></td>
+            <td class="num stat-cell" data-value="70"><span class="badge badge-orange">🍊 70</span></td>
+          </tr>
+        
+          <tr>
+            <td class="num" data-value="15">15</td>
+            <td class="player-name" data-value="klurter">Klurter</td>
+            <td class="num stat-cell" data-value="1353862"><span class="badge badge-gold">💰 135g</span></td>
+            <td class="num stat-cell" data-value="5"><span class="badge badge-total">💀 5</span></td>
+            <td class="num stat-cell" data-value="4"><span class="badge badge-boss">👑 4</span></td>
+            <td class="num stat-cell" data-value="1"><span class="badge badge-trash">🗑️ 1</span></td>
+            <td class="num stat-cell" data-value="3"><span class="badge badge-healthstone">🟢 3</span></td>
+            <td class="num stat-cell" data-value="13"><span class="badge badge-orange">🍊 13</span></td>
+          </tr>
+        
+          <tr>
+            <td class="num" data-value="16">16</td>
+            <td class="player-name" data-value="hitchslap">Hitchslap</td>
+            <td class="num stat-cell" data-value="1350050"><span class="badge badge-gold">💰 135g</span></td>
+            <td class="num stat-cell" data-value="2"><span class="badge badge-total">💀 2</span></td>
+            <td class="num stat-cell" data-value="0"><span class="badge badge-boss">👑 0</span></td>
+            <td class="num stat-cell" data-value="2"><span class="badge badge-trash">🗑️ 2</span></td>
+            <td class="num stat-cell" data-value="0"><span class="badge badge-healthstone">🟢 0</span></td>
+            <td class="num stat-cell" data-value="14"><span class="badge badge-orange">🍊 14</span></td>
+          </tr>
+        
+          <tr>
+            <td class="num" data-value="17">17</td>
+            <td class="player-name" data-value="prieststift">Prieststift</td>
+            <td class="num stat-cell" data-value="1277977"><span class="badge badge-gold">💰 128g</span></td>
+            <td class="num stat-cell" data-value="4"><span class="badge badge-total">💀 4</span></td>
+            <td class="num stat-cell" data-value="2"><span class="badge badge-boss">👑 2</span></td>
+            <td class="num stat-cell" data-value="2"><span class="badge badge-trash">🗑️ 2</span></td>
+            <td class="num stat-cell" data-value="1"><span class="badge badge-healthstone">🟢 1</span></td>
+            <td class="num stat-cell" data-value="49"><span class="badge badge-orange">🍊 49</span></td>
+          </tr>
+        
+          <tr>
+            <td class="num" data-value="18">18</td>
+            <td class="player-name" data-value="lyliah">Lyliah</td>
+            <td class="num stat-cell" data-value="1251939"><span class="badge badge-gold">💰 125g</span></td>
+            <td class="num stat-cell" data-value="2"><span class="badge badge-total">💀 2</span></td>
+            <td class="num stat-cell" data-value="1"><span class="badge badge-boss">👑 1</span></td>
+            <td class="num stat-cell" data-value="1"><span class="badge badge-trash">🗑️ 1</span></td>
+            <td class="num stat-cell" data-value="2"><span class="badge badge-healthstone">🟢 2</span></td>
+            <td class="num stat-cell" data-value="20"><span class="badge badge-orange">🍊 20</span></td>
+          </tr>
+        
+          <tr>
+            <td class="num" data-value="19">19</td>
+            <td class="player-name" data-value="buldogg">Buldogg</td>
+            <td class="num stat-cell" data-value="1185276"><span class="badge badge-gold">💰 119g</span></td>
+            <td class="num stat-cell" data-value="5"><span class="badge badge-total">💀 5</span></td>
+            <td class="num stat-cell" data-value="3"><span class="badge badge-boss">👑 3</span></td>
+            <td class="num stat-cell" data-value="2"><span class="badge badge-trash">🗑️ 2</span></td>
+            <td class="num stat-cell" data-value="4"><span class="badge badge-healthstone">🟢 4</span></td>
+            <td class="num stat-cell" data-value="18"><span class="badge badge-orange">🍊 18</span></td>
+          </tr>
+        
+          <tr>
+            <td class="num" data-value="20">20</td>
+            <td class="player-name" data-value="morlitanan">Morlitanan</td>
+            <td class="num stat-cell" data-value="1167799"><span class="badge badge-gold">💰 117g</span></td>
+            <td class="num stat-cell" data-value="8"><span class="badge badge-total">💀 8</span></td>
+            <td class="num stat-cell" data-value="6"><span class="badge badge-boss">👑 6</span></td>
+            <td class="num stat-cell" data-value="2"><span class="badge badge-trash">🗑️ 2</span></td>
+            <td class="num stat-cell" data-value="6"><span class="badge badge-healthstone">🟢 6</span></td>
+            <td class="num stat-cell" data-value="24"><span class="badge badge-orange">🍊 24</span></td>
+          </tr>
+        
+          <tr>
+            <td class="num" data-value="21">21</td>
+            <td class="player-name" data-value="omegadeth">Omegadeth</td>
+            <td class="num stat-cell" data-value="1101831"><span class="badge badge-gold">💰 110g</span></td>
+            <td class="num stat-cell" data-value="3"><span class="badge badge-total">💀 3</span></td>
+            <td class="num stat-cell" data-value="2"><span class="badge badge-boss">👑 2</span></td>
+            <td class="num stat-cell" data-value="1"><span class="badge badge-trash">🗑️ 1</span></td>
+            <td class="num stat-cell" data-value="3"><span class="badge badge-healthstone">🟢 3</span></td>
+            <td class="num stat-cell" data-value="20"><span class="badge badge-orange">🍊 20</span></td>
+          </tr>
+        
+          <tr>
+            <td class="num" data-value="22">22</td>
+            <td class="player-name" data-value="mockyruth">Mockyruth</td>
+            <td class="num stat-cell" data-value="1084462"><span class="badge badge-gold">💰 108g</span></td>
+            <td class="num stat-cell" data-value="4"><span class="badge badge-total">💀 4</span></td>
+            <td class="num stat-cell" data-value="3"><span class="badge badge-boss">👑 3</span></td>
+            <td class="num stat-cell" data-value="1"><span class="badge badge-trash">🗑️ 1</span></td>
+            <td class="num stat-cell" data-value="1"><span class="badge badge-healthstone">🟢 1</span></td>
+            <td class="num stat-cell" data-value="55"><span class="badge badge-orange">🍊 55</span></td>
+          </tr>
+        
+          <tr>
+            <td class="num" data-value="23">23</td>
+            <td class="player-name" data-value="wildenaomi">Wildenaomi</td>
+            <td class="num stat-cell" data-value="1014302"><span class="badge badge-gold">💰 101g</span></td>
+            <td class="num stat-cell" data-value="3"><span class="badge badge-total">💀 3</span></td>
+            <td class="num stat-cell" data-value="2"><span class="badge badge-boss">👑 2</span></td>
+            <td class="num stat-cell" data-value="1"><span class="badge badge-trash">🗑️ 1</span></td>
+            <td class="num stat-cell" data-value="6"><span class="badge badge-healthstone">🟢 6</span></td>
+            <td class="num stat-cell" data-value="28"><span class="badge badge-orange">🍊 28</span></td>
+          </tr>
+        
+          <tr>
+            <td class="num" data-value="24">24</td>
+            <td class="player-name" data-value="eyestabyew">Eyestabyew</td>
+            <td class="num stat-cell" data-value="975644"><span class="badge badge-gold">💰 98g</span></td>
+            <td class="num stat-cell" data-value="6"><span class="badge badge-total">💀 6</span></td>
+            <td class="num stat-cell" data-value="5"><span class="badge badge-boss">👑 5</span></td>
+            <td class="num stat-cell" data-value="1"><span class="badge badge-trash">🗑️ 1</span></td>
+            <td class="num stat-cell" data-value="0"><span class="badge badge-healthstone">🟢 0</span></td>
+            <td class="num stat-cell" data-value="13"><span class="badge badge-orange">🍊 13</span></td>
+          </tr>
+        
+          <tr>
+            <td class="num" data-value="25">25</td>
+            <td class="player-name" data-value="suontahu">Suontahu</td>
+            <td class="num stat-cell" data-value="946939"><span class="badge badge-gold">💰 95g</span></td>
+            <td class="num stat-cell" data-value="3"><span class="badge badge-total">💀 3</span></td>
+            <td class="num stat-cell" data-value="1"><span class="badge badge-boss">👑 1</span></td>
+            <td class="num stat-cell" data-value="2"><span class="badge badge-trash">🗑️ 2</span></td>
+            <td class="num stat-cell" data-value="5"><span class="badge badge-healthstone">🟢 5</span></td>
+            <td class="num stat-cell" data-value="14"><span class="badge badge-orange">🍊 14</span></td>
+          </tr>
+        
+          <tr>
+            <td class="num" data-value="26">26</td>
+            <td class="player-name" data-value="panoptic">Panoptic</td>
+            <td class="num stat-cell" data-value="905734"><span class="badge badge-gold">💰 91g</span></td>
+            <td class="num stat-cell" data-value="4"><span class="badge badge-total">💀 4</span></td>
+            <td class="num stat-cell" data-value="2"><span class="badge badge-boss">👑 2</span></td>
+            <td class="num stat-cell" data-value="2"><span class="badge badge-trash">🗑️ 2</span></td>
+            <td class="num stat-cell" data-value="0"><span class="badge badge-healthstone">🟢 0</span></td>
+            <td class="num stat-cell" data-value="67"><span class="badge badge-orange">🍊 67</span></td>
+          </tr>
+        
+          <tr>
+            <td class="num" data-value="27">27</td>
+            <td class="player-name" data-value="cydara">Cydara</td>
+            <td class="num stat-cell" data-value="881733"><span class="badge badge-gold">💰 88g</span></td>
+            <td class="num stat-cell" data-value="7"><span class="badge badge-total">💀 7</span></td>
+            <td class="num stat-cell" data-value="5"><span class="badge badge-boss">👑 5</span></td>
+            <td class="num stat-cell" data-value="2"><span class="badge badge-trash">🗑️ 2</span></td>
+            <td class="num stat-cell" data-value="5"><span class="badge badge-healthstone">🟢 5</span></td>
+            <td class="num stat-cell" data-value="25"><span class="badge badge-orange">🍊 25</span></td>
+          </tr>
+        
+          <tr>
+            <td class="num" data-value="28">28</td>
+            <td class="player-name" data-value="nimist">Nimist</td>
+            <td class="num stat-cell" data-value="785034"><span class="badge badge-gold">💰 79g</span></td>
+            <td class="num stat-cell" data-value="3"><span class="badge badge-total">💀 3</span></td>
+            <td class="num stat-cell" data-value="2"><span class="badge badge-boss">👑 2</span></td>
+            <td class="num stat-cell" data-value="1"><span class="badge badge-trash">🗑️ 1</span></td>
+            <td class="num stat-cell" data-value="6"><span class="badge badge-healthstone">🟢 6</span></td>
+            <td class="num stat-cell" data-value="34"><span class="badge badge-orange">🍊 34</span></td>
+          </tr>
+        
+          <tr>
+            <td class="num" data-value="29">29</td>
+            <td class="player-name" data-value="humanji">Humanji</td>
+            <td class="num stat-cell" data-value="779961"><span class="badge badge-gold">💰 78g</span></td>
+            <td class="num stat-cell" data-value="2"><span class="badge badge-total">💀 2</span></td>
+            <td class="num stat-cell" data-value="1"><span class="badge badge-boss">👑 1</span></td>
+            <td class="num stat-cell" data-value="1"><span class="badge badge-trash">🗑️ 1</span></td>
+            <td class="num stat-cell" data-value="10"><span class="badge badge-healthstone">🟢 10</span></td>
+            <td class="num stat-cell" data-value="68"><span class="badge badge-orange">🍊 68</span></td>
+          </tr>
+        
+          <tr>
+            <td class="num" data-value="30">30</td>
+            <td class="player-name" data-value="nannalovisa">Nannalovisa</td>
+            <td class="num stat-cell" data-value="747531"><span class="badge badge-gold">💰 75g</span></td>
+            <td class="num stat-cell" data-value="4"><span class="badge badge-total">💀 4</span></td>
+            <td class="num stat-cell" data-value="3"><span class="badge badge-boss">👑 3</span></td>
+            <td class="num stat-cell" data-value="1"><span class="badge badge-trash">🗑️ 1</span></td>
+            <td class="num stat-cell" data-value="2"><span class="badge badge-healthstone">🟢 2</span></td>
+            <td class="num stat-cell" data-value="23"><span class="badge badge-orange">🍊 23</span></td>
+          </tr>
+        
+          <tr>
+            <td class="num" data-value="31">31</td>
+            <td class="player-name" data-value="heranor">Heranor</td>
+            <td class="num stat-cell" data-value="714060"><span class="badge badge-gold">💰 71g</span></td>
+            <td class="num stat-cell" data-value="3"><span class="badge badge-total">💀 3</span></td>
+            <td class="num stat-cell" data-value="1"><span class="badge badge-boss">👑 1</span></td>
+            <td class="num stat-cell" data-value="2"><span class="badge badge-trash">🗑️ 2</span></td>
+            <td class="num stat-cell" data-value="4"><span class="badge badge-healthstone">🟢 4</span></td>
+            <td class="num stat-cell" data-value="21"><span class="badge badge-orange">🍊 21</span></td>
+          </tr>
+        
+          <tr>
+            <td class="num" data-value="32">32</td>
+            <td class="player-name" data-value="grizzmokhtar">Grizzmokhtar</td>
+            <td class="num stat-cell" data-value="672808"><span class="badge badge-gold">💰 67g</span></td>
+            <td class="num stat-cell" data-value="3"><span class="badge badge-total">💀 3</span></td>
+            <td class="num stat-cell" data-value="2"><span class="badge badge-boss">👑 2</span></td>
+            <td class="num stat-cell" data-value="1"><span class="badge badge-trash">🗑️ 1</span></td>
+            <td class="num stat-cell" data-value="0"><span class="badge badge-healthstone">🟢 0</span></td>
+            <td class="num stat-cell" data-value="45"><span class="badge badge-orange">🍊 45</span></td>
+          </tr>
+        
+          <tr>
+            <td class="num" data-value="33">33</td>
+            <td class="player-name" data-value="jemeka">Jemeka</td>
+            <td class="num stat-cell" data-value="652482"><span class="badge badge-gold">💰 65g</span></td>
+            <td class="num stat-cell" data-value="4"><span class="badge badge-total">💀 4</span></td>
+            <td class="num stat-cell" data-value="3"><span class="badge badge-boss">👑 3</span></td>
+            <td class="num stat-cell" data-value="1"><span class="badge badge-trash">🗑️ 1</span></td>
+            <td class="num stat-cell" data-value="8"><span class="badge badge-healthstone">🟢 8</span></td>
+            <td class="num stat-cell" data-value="37"><span class="badge badge-orange">🍊 37</span></td>
+          </tr>
+        
+          <tr>
+            <td class="num" data-value="34">34</td>
+            <td class="player-name" data-value="necrital">Necrital</td>
+            <td class="num stat-cell" data-value="583803"><span class="badge badge-gold">💰 58g</span></td>
+            <td class="num stat-cell" data-value="2"><span class="badge badge-total">💀 2</span></td>
+            <td class="num stat-cell" data-value="1"><span class="badge badge-boss">👑 1</span></td>
+            <td class="num stat-cell" data-value="1"><span class="badge badge-trash">🗑️ 1</span></td>
+            <td class="num stat-cell" data-value="0"><span class="badge badge-healthstone">🟢 0</span></td>
+            <td class="num stat-cell" data-value="22"><span class="badge badge-orange">🍊 22</span></td>
+          </tr>
+        
+          <tr>
+            <td class="num" data-value="35">35</td>
+            <td class="player-name" data-value="ozhammera">Ozhammera</td>
+            <td class="num stat-cell" data-value="431805"><span class="badge badge-gold">💰 43g</span></td>
+            <td class="num stat-cell" data-value="3"><span class="badge badge-total">💀 3</span></td>
+            <td class="num stat-cell" data-value="2"><span class="badge badge-boss">👑 2</span></td>
+            <td class="num stat-cell" data-value="1"><span class="badge badge-trash">🗑️ 1</span></td>
+            <td class="num stat-cell" data-value="0"><span class="badge badge-healthstone">🟢 0</span></td>
+            <td class="num stat-cell" data-value="37"><span class="badge badge-orange">🍊 37</span></td>
+          </tr>
+        
+          <tr>
+            <td class="num" data-value="36">36</td>
+            <td class="player-name" data-value="cezarica">Cezarica</td>
+            <td class="num stat-cell" data-value="307607"><span class="badge badge-gold">💰 31g</span></td>
+            <td class="num stat-cell" data-value="8"><span class="badge badge-total">💀 8</span></td>
+            <td class="num stat-cell" data-value="6"><span class="badge badge-boss">👑 6</span></td>
+            <td class="num stat-cell" data-value="2"><span class="badge badge-trash">🗑️ 2</span></td>
+            <td class="num stat-cell" data-value="1"><span class="badge badge-healthstone">🟢 1</span></td>
+            <td class="num stat-cell" data-value="64"><span class="badge badge-orange">🍊 64</span></td>
+          </tr>
+        
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span>Generated by summarize_consumes</span>
+      <span>Prices: Nordanaar AH</span>
+    </div>
+  </div>
+  <script>
+    (function () {
+      const table = document.querySelector('.raid-table');
+      if (!table) return;
+      const headers = Array.from(table.querySelectorAll('th.sortable'));
+      const tbody = table.querySelector('tbody');
+
+      const clearSortIndicators = () => {
+        headers.forEach((header) => {
+          header.classList.remove('sorted-asc', 'sorted-desc');
+        });
+      };
+
+      const sortRows = (columnIndex, type, direction) => {
+        const rows = Array.from(tbody.querySelectorAll('tr'));
+        const multiplier = direction === 'asc' ? 1 : -1;
+        rows.sort((a, b) => {
+          const aCell = a.children[columnIndex];
+          const bCell = b.children[columnIndex];
+          const aValue = aCell?.dataset.value ?? aCell?.textContent.trim();
+          const bValue = bCell?.dataset.value ?? bCell?.textContent.trim();
+          if (type === 'number') {
+            return (Number(aValue) - Number(bValue)) * multiplier;
+          }
+          return String(aValue).localeCompare(String(bValue)) * multiplier;
+        });
+        rows.forEach((row) => tbody.appendChild(row));
+      };
+
+      headers.forEach((header) => {
+        header.addEventListener('click', () => {
+          const columnIndex = header.cellIndex;
+          const type = header.dataset.type || 'text';
+          const isDesc = header.classList.contains('sorted-desc');
+          const direction = isDesc ? 'asc' : 'desc';
+          clearSortIndicators();
+          header.classList.add(direction === 'asc' ? 'sorted-asc' : 'sorted-desc');
+          sortRows(columnIndex, type, direction);
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
