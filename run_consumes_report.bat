@@ -45,7 +45,7 @@ if exist "prices-web.json" move /y "prices-web.json" "%OUTDIR%\prices-web.json" 
 REM === DISCORD CARD (HTML -> PNG) ===
 set "GUILDNAME=YOUR GUILD NAME"
 
-python "%CD%\discord_card.py" "%OUTDIR%\consumable-totals.csv" "%OUTDIR%\discord-card.html" "%LOGFILE%" "Benig" "%OUTDIR%\summary.txt"
+python "%CD%\discord_card.py" "%OUTDIR%\consumable-totals.csv" "%OUTDIR%\discord-card.html" "%LOGFILE%" "Benig" "%OUTDIR%\summary.txt" --full-report "%OUTDIR%\raid-report.html"
 
 REM Edge headless screenshot (most Windows installs)
 set "EDGE=%ProgramFiles(x86)%\Microsoft\Edge\Application\msedge.exe"
