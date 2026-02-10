@@ -1,6 +1,10 @@
 @echo off
 setlocal EnableExtensions EnableDelayedExpansion
 
+REM Always run from this script's directory so relative paths are stable.
+set "SCRIPT_DIR=%~dp0"
+pushd "%SCRIPT_DIR%" >nul
+
 REM === SETTINGS ===
 set "SERVER=nord"
 set "LOGFILE=WoWCombatLog.txt"
@@ -9,11 +13,13 @@ set "EXE=summarize_consumes.exe"
 REM === SANITY CHECKS ===
 if not exist "%EXE%" (
   echo [ERROR] "%EXE%" not found in %CD%
+  popd >nul
   exit /b 1
 )
 
 if not exist "%LOGFILE%" (
   echo [ERROR] "%LOGFILE%" not found in %CD%
+  popd >nul
   exit /b 1
 )
 
@@ -34,6 +40,7 @@ echo [INFO] Running summarize_consumes...
 
 if errorlevel 1 (
   echo [ERROR] summarize_consumes failed.
+  popd >nul
   exit /b 1
 )
 
@@ -100,12 +107,23 @@ if errorlevel 1 (
 REM === TWTHREAT REPORT ===
 REM Parses ThreatLogs\TWThreatThreatLog*_part*.txt* and writes a themed raid threat report.
 if exist "%CD%\generate_threat_report.py" (
+  set "THREAT_LOG_DIR=%CD%\ThreatLogs"
+  set "THREAT_REPORT_OUT=%OUTDIR%\raid-threat-report.html"
+
+  if not exist "%THREAT_LOG_DIR%" (
+    echo [WARN] TWThreat log directory not found: %THREAT_LOG_DIR%
+  )
+
   echo [INFO] Creating TWThreat report...
-  python "%CD%\generate_threat_report.py" --log-dir "%CD%\ThreatLogs" --output "%OUTDIR%\raid-threat-report.html"
+  python "%CD%\generate_threat_report.py" --log-dir "%THREAT_LOG_DIR%" --combat-log "%CD%\%LOGFILE%" --output "%THREAT_REPORT_OUT%"
   if errorlevel 1 (
     echo [WARN] TWThreat report generation failed.
   ) else (
-    echo [INFO] TWThreat report created: %OUTDIR%\raid-threat-report.html
+    if exist "%THREAT_REPORT_OUT%" (
+      echo [INFO] TWThreat report created: %THREAT_REPORT_OUT%
+    ) else (
+      echo [WARN] TWThreat script succeeded but output file was not found: %THREAT_REPORT_OUT%
+    )
   )
 ) else (
   echo [WARN] generate_threat_report.py not found. Skipping TWThreat report.
@@ -114,4 +132,5 @@ if exist "%CD%\generate_threat_report.py" (
 REM Always open the output folder
 start "" "%OUTDIR%\"
 echo [DONE]
+popd >nul
 endlocal
