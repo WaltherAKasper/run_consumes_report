@@ -54,13 +54,28 @@ if not exist "%EDGE%" set "EDGE=%ProgramFiles%\Microsoft\Edge\Application\msedge
 if exist "%EDGE%" (
   "%EDGE%" --headless --disable-gpu --window-size=1600,900 --screenshot="%OUTDIR%\\discord-card.png" "file:///%OUTDIR:\=/%/discord-card.html"
   echo [INFO] Discord PNG created: %OUTDIR%\\discord-card.png
+
+  if exist "%OUTDIR%\\raid-report.html" (
+    "%EDGE%" --headless --disable-gpu --window-size=1800,2200 --screenshot="%OUTDIR%\\raid-report.png" "file:///%OUTDIR:\=/%/raid-report.html"
+    echo [INFO] Raid report PNG created: %OUTDIR%\\raid-report.png
+
+    REM Crop raid report PNG manually: top right bottom left (in pixels)
+    python "%CD%\crop_png_manual.py" "%OUTDIR%\raid-report.png" "%OUTDIR%\raid-report.png" 0 600 200 0
+    if errorlevel 1 (
+      echo [WARN] Raid report PNG cropping failed - Pillow missing? Install with: pip install Pillow
+    ) else (
+      echo [INFO] Raid report PNG cropped successfully
+    )
+  ) else (
+    echo [WARN] Raid report HTML not found. raid-report.png was not created.
+  )
   
-  REM Crop PNG manually: top right bottom left (in pixels)
+  REM Crop discord PNG manually: top right bottom left (in pixels)
   python "%CD%\crop_png_manual.py" "%OUTDIR%\\discord-card.png" "%OUTDIR%\\discord-card.png" 0 400 285 0
   if errorlevel 1 (
-    echo [WARN] PNG cropping failed - Pillow missing? Install with: pip install Pillow
+    echo [WARN] Discord PNG cropping failed - Pillow missing? Install with: pip install Pillow
   ) else (
-    echo [INFO] PNG cropped successfully
+    echo [INFO] Discord PNG cropped successfully
   )
 ) else (
   echo [WARN] Edge not found. PNG not created. You can still open discord-card.html and screenshot manually.
