@@ -28,8 +28,8 @@
     th { font-size:11px; color:#8b949e; text-transform:uppercase; letter-spacing:1px; }
     .badge { display:inline-block; padding:2px 8px; border-radius:999px; font-size:11px; border:1px solid transparent; }
     .badge.tank { color:#fca5a5; border-color:rgba(248,113,113,.5); background:rgba(127,29,29,.2); }
-    .badge.melee { color:#93c5fd; border-color:rgba(59,130,246,.5); background:rgba(30,58,138,.2); }
-    .badge.ranged { color:#86efac; border-color:rgba(34,197,94,.5); background:rgba(20,83,45,.2); }
+    .badge.healer { color:#86efac; border-color:rgba(34,197,94,.5); background:rgba(20,83,45,.2); }
+    .badge.dps { color:#93c5fd; border-color:rgba(59,130,246,.5); background:rgba(30,58,138,.2); }
     .footnote { margin-top:8px; color:#6e7681; font-size:12px; line-height:1.5; }
   </style>
 </head>
@@ -38,479 +38,92 @@
     <div class='header'>
       <div>
         <div class='title'>Raid Threat Report</div>
-        <div class='subtitle'>Generated from TWThreat snapshots (TWThreatThreatLog_Infex_2737_2165536284_part0001.txt.txt, TWThreatThreatLog_Infex_2737_2165536284_part0002.txt.txt)</div>
+        <div class='subtitle'>Ruins of Ahn&#x27;Qiraj • guild-filtered players only (Dark Sun, Knights Hospitaller)</div>
       </div>
       <div class='server-badge'>TWThreat v4</div>
     </div>
 
     <div class='stats-row'>
-      <div class='stat-card'><div class='stat-label'>Detected Fights</div><div class='stat-value'>41</div></div>
-      <div class='stat-card'><div class='stat-label'>Unique Targets</div><div class='stat-value'>41</div></div>
-      <div class='stat-card'><div class='stat-label'>Threat Snapshots</div><div class='stat-value'>4,942</div></div>
-      <div class='stat-card'><div class='stat-label'>Gap Split Threshold</div><div class='stat-value'>30s</div></div>
+      <div class='stat-card'><div class='stat-label'>Detected Boss Fights</div><div class='stat-value'>6</div></div>
+      <div class='stat-card'><div class='stat-label'>Boss Targets</div><div class='stat-value'>6</div></div>
+      <div class='stat-card'><div class='stat-label'>Threat Snapshots</div><div class='stat-value'>2,203</div></div>
+      <div class='stat-card'><div class='stat-label'>Guild Players Seen</div><div class='stat-value'>4</div></div>
     </div>
 
     <section class='panel'>
-      <div class='panel-header'>
-        <h3>Raid Summary</h3>
-      </div>
+      <div class='panel-header'><h3>Raid Summary</h3></div>
       <table>
-        <thead><tr><th>Player</th><th>Role</th><th>Fights</th><th>Total Threat Done</th><th>Weighted TPS</th><th>Avg Top %</th></tr></thead>
-        <tbody><tr><td>Paikeen</td><td><span class='badge ranged'>Ranged</span></td><td>28</td><td>1,012,564.0</td><td>4,439.3</td><td>29.7%</td></tr><tr><td>Helstar</td><td><span class='badge tank'>Tank</span></td><td>40</td><td>374,312.0</td><td>407.6</td><td>85.1%</td></tr><tr><td>Deokrion</td><td><span class='badge melee'>Melee</span></td><td>35</td><td>234,166.0</td><td>292.3</td><td>62.6%</td></tr><tr><td>Infex</td><td><span class='badge ranged'>Ranged</span></td><td>40</td><td>218,779.0</td><td>261.7</td><td>48.0%</td></tr><tr><td>Cnatsplel</td><td><span class='badge melee'>Melee</span></td><td>35</td><td>187,907.0</td><td>293.1</td><td>40.5%</td></tr><tr><td>Drevn</td><td><span class='badge melee'>Melee</span></td><td>28</td><td>145,363.0</td><td>383.1</td><td>57.3%</td></tr><tr><td>Lieutenant General Andorov</td><td><span class='badge melee'>Melee</span></td><td>6</td><td>37,691.0</td><td>458.6</td><td>39.5%</td></tr><tr><td>Rotpotato</td><td><span class='badge ranged'>Ranged</span></td><td>16</td><td>32,575.0</td><td>162.4</td><td>41.7%</td></tr><tr><td>Shadowfisk</td><td><span class='badge ranged'>Ranged</span></td><td>16</td><td>31,260.0</td><td>145.7</td><td>33.7%</td></tr><tr><td>Qyii</td><td><span class='badge ranged'>Ranged</span></td><td>17</td><td>19,030.0</td><td>189.4</td><td>26.9%</td></tr><tr><td>Morphmonga</td><td><span class='badge ranged'>Ranged</span></td><td>20</td><td>15,535.0</td><td>98.5</td><td>23.2%</td></tr><tr><td>Airmiles</td><td><span class='badge ranged'>Ranged</span></td><td>8</td><td>7,539.0</td><td>151.2</td><td>39.0%</td></tr><tr><td>Kaldorei Elite</td><td><span class='badge melee'>Melee</span></td><td>3</td><td>5,495.0</td><td>243.1</td><td>30.7%</td></tr><tr><td>Zilches</td><td><span class='badge ranged'>Ranged</span></td><td>10</td><td>5,340.0</td><td>52.3</td><td>39.1%</td></tr><tr><td>Syilver</td><td><span class='badge ranged'>Ranged</span></td><td>12</td><td>3,911.0</td><td>44.2</td><td>28.3%</td></tr><tr><td>Dairytotem</td><td><span class='badge ranged'>Ranged</span></td><td>11</td><td>3,042.0</td><td>58.2</td><td>41.9%</td></tr><tr><td>Taoz</td><td><span class='badge ranged'>Ranged</span></td><td>6</td><td>596.0</td><td>11.2</td><td>42.3%</td></tr><tr><td>Magma Totem IV</td><td><span class='badge ranged'>Ranged</span></td><td>1</td><td>0.0</td><td>0.0</td><td>4.5%</td></tr><tr><td>Stoneclaw Totem VI</td><td><span class='badge ranged'>Ranged</span></td><td>4</td><td>0.0</td><td>0.0</td><td>3.6%</td></tr></tbody>
+        <thead><tr><th>Player</th><th>Role</th><th>Fights</th><th>Total Threat Done</th><th>Weighted TPS</th><th>Avg Top %</th><th>Heals</th><th>Taunts</th></tr></thead>
+        <tbody><tr><td>Infex</td><td><span class='badge dps'>DPS</span></td><td>6</td><td>81,043.0</td><td>195.3</td><td>48.0%</td><td>0</td><td>0</td></tr></tbody>
       </table>
-      <p class='footnote'>Threat Done = lastThreat - firstThreat within each fight window per player appearance. Weighted TPS = totalThreatDone / totalObservedSeconds.</p>
-      <p class='footnote'>Fights are grouped by target GUID + target name and split when time between snapshots exceeds 30s.</p>
+      <p class='footnote'>Input files: TWThreatThreatLog_Infex_2737_2165536284_part0001.txt.txt, TWThreatThreatLog_Infex_2737_2165536284_part0002.txt.txt</p>
+      <p class='footnote'>Fights are grouped by target GUID + target name and split when gaps exceed 30s. Non-boss targets are removed using raid boss list for Ruins of Ahn&#x27;Qiraj.</p>
     </section>
 
     
       <section class='panel'>
         <div class='panel-header'>
-          <h3>1. Qiraji Gladiator</h3>
-          <div class='fight-meta'>GUID: 0xF130003BDC11FAC8 • 10.3s • 49 snapshots</div>
+          <h3>1. Kurinnaxx</h3>
+          <div class='fight-meta'>51.3s • 250 snapshots</div>
         </div>
         <table>
           <thead><tr><th>Player</th><th>Role</th><th>Threat Done</th><th>TPS</th><th>Avg Top %</th><th>Samples</th></tr></thead>
-          <tbody><tr><td>Cnatsplel</td><td><span class='badge melee'>Melee</span></td><td>3,608.0</td><td>400.2</td><td>34.1%</td><td>38</td></tr><tr><td>Deokrion</td><td><span class='badge tank'>Tank</span></td><td>3,340.0</td><td>324.3</td><td>100.0%</td><td>49</td></tr><tr><td>Infex</td><td><span class='badge ranged'>Ranged</span></td><td>2,352.0</td><td>326.2</td><td>49.4%</td><td>34</td></tr><tr><td>Zilches</td><td><span class='badge ranged'>Ranged</span></td><td>1,798.0</td><td>223.9</td><td>38.0%</td><td>38</td></tr><tr><td>Helstar</td><td><span class='badge ranged'>Ranged</span></td><td>3.0</td><td>1.8</td><td>0.2%</td><td>9</td></tr><tr><td>Drevn</td><td><span class='badge melee'>Melee</span></td><td>0.0</td><td>0.0</td><td>40.9%</td><td>2</td></tr><tr><td>Qyii</td><td><span class='badge ranged'>Ranged</span></td><td>0.0</td><td>0.0</td><td>36.6%</td><td>3</td></tr></tbody>
+          <tbody><tr><td>Infex</td><td><span class='badge dps'>DPS</span></td><td>21,165.0</td><td>450.1</td><td>59.8%</td><td>229</td></tr></tbody>
         </table>
       </section>
             
       <section class='panel'>
         <div class='panel-header'>
-          <h3>2. Qiraji Gladiator</h3>
-          <div class='fight-meta'>GUID: 0xF130003BDC0155E6 • 10.7s • 49 snapshots</div>
+          <h3>2. General Rajaxx</h3>
+          <div class='fight-meta'>54.9s • 267 snapshots</div>
         </div>
         <table>
           <thead><tr><th>Player</th><th>Role</th><th>Threat Done</th><th>TPS</th><th>Avg Top %</th><th>Samples</th></tr></thead>
-          <tbody><tr><td>Helstar</td><td><span class='badge tank'>Tank</span></td><td>9,467.0</td><td>884.4</td><td>100.0%</td><td>49</td></tr><tr><td>Drevn</td><td><span class='badge melee'>Melee</span></td><td>3,119.0</td><td>519.7</td><td>29.1%</td><td>30</td></tr><tr><td>Deokrion</td><td><span class='badge melee'>Melee</span></td><td>3,000.0</td><td>500.2</td><td>28.2%</td><td>21</td></tr><tr><td>Infex</td><td><span class='badge ranged'>Ranged</span></td><td>2,059.0</td><td>270.0</td><td>13.5%</td><td>38</td></tr><tr><td>Dairytotem</td><td><span class='badge ranged'>Ranged</span></td><td>1,379.0</td><td>249.2</td><td>12.7%</td><td>24</td></tr><tr><td>Paikeen</td><td><span class='badge ranged'>Ranged</span></td><td>537.0</td><td>119.1</td><td>9.7%</td><td>13</td></tr><tr><td>Zilches</td><td><span class='badge ranged'>Ranged</span></td><td>0.0</td><td>0.0</td><td>7.7%</td><td>5</td></tr><tr><td>Cnatsplel</td><td><span class='badge melee'>Melee</span></td><td>0.0</td><td>0.0</td><td>28.4%</td><td>5</td></tr></tbody>
+          <tbody><tr><td>Infex</td><td><span class='badge dps'>DPS</span></td><td>22,653.0</td><td>412.3</td><td>62.1%</td><td>267</td></tr></tbody>
         </table>
       </section>
             
       <section class='panel'>
         <div class='panel-header'>
-          <h3>3. Hive&#x27;Zara Stinger</h3>
-          <div class='fight-meta'>GUID: 0xF130003BDF11FAE0 • 13.8s • 68 snapshots</div>
+          <h3>3. Buru the Gorger</h3>
+          <div class='fight-meta'>112.4s • 480 snapshots</div>
         </div>
         <table>
           <thead><tr><th>Player</th><th>Role</th><th>Threat Done</th><th>TPS</th><th>Avg Top %</th><th>Samples</th></tr></thead>
-          <tbody><tr><td>Helstar</td><td><span class='badge tank'>Tank</span></td><td>6,273.0</td><td>453.8</td><td>84.0%</td><td>68</td></tr><tr><td>Infex</td><td><span class='badge melee'>Melee</span></td><td>4,226.0</td><td>474.9</td><td>73.7%</td><td>44</td></tr><tr><td>Drevn</td><td><span class='badge melee'>Melee</span></td><td>3,809.0</td><td>330.8</td><td>87.7%</td><td>57</td></tr><tr><td>Cnatsplel</td><td><span class='badge melee'>Melee</span></td><td>2,089.0</td><td>289.0</td><td>44.3%</td><td>34</td></tr><tr><td>Paikeen</td><td><span class='badge melee'>Melee</span></td><td>74.0</td><td>24.1</td><td>23.2%</td><td>16</td></tr><tr><td>Shadowfisk</td><td><span class='badge ranged'>Ranged</span></td><td>0.0</td><td>0.0</td><td>0.1%</td><td>1</td></tr><tr><td>Taoz</td><td><span class='badge ranged'>Ranged</span></td><td>0.0</td><td>0.0</td><td>0.9%</td><td>2</td></tr><tr><td>Deokrion</td><td><span class='badge melee'>Melee</span></td><td>0.0</td><td>0.0</td><td>53.2%</td><td>2</td></tr></tbody>
+          <tbody><tr><td>Infex</td><td><span class='badge dps'>DPS</span></td><td>0.0</td><td>0.0</td><td>47.1%</td><td>448</td></tr></tbody>
         </table>
       </section>
             
       <section class='panel'>
         <div class='panel-header'>
-          <h3>4. Hive&#x27;Zara Stinger</h3>
-          <div class='fight-meta'>GUID: 0xF130003BDF0155DB • 37.5s • 95 snapshots</div>
+          <h3>4. Moam</h3>
+          <div class='fight-meta'>48.1s • 235 snapshots</div>
         </div>
         <table>
           <thead><tr><th>Player</th><th>Role</th><th>Threat Done</th><th>TPS</th><th>Avg Top %</th><th>Samples</th></tr></thead>
-          <tbody><tr><td>Infex</td><td><span class='badge ranged'>Ranged</span></td><td>4,717.0</td><td>146.9</td><td>59.2%</td><td>69</td></tr><tr><td>Helstar</td><td><span class='badge tank'>Tank</span></td><td>3,584.0</td><td>95.7</td><td>79.2%</td><td>95</td></tr><tr><td>Deokrion</td><td><span class='badge melee'>Melee</span></td><td>2,363.0</td><td>63.1</td><td>82.9%</td><td>95</td></tr><tr><td>Shadowfisk</td><td><span class='badge melee'>Melee</span></td><td>1,540.0</td><td>168.7</td><td>29.7%</td><td>38</td></tr><tr><td>Cnatsplel</td><td><span class='badge melee'>Melee</span></td><td>606.0</td><td>69.6</td><td>28.1%</td><td>40</td></tr><tr><td>Paikeen</td><td><span class='badge ranged'>Ranged</span></td><td>31.0</td><td>158.2</td><td>17.2%</td><td>2</td></tr><tr><td>Qyii</td><td><span class='badge melee'>Melee</span></td><td>0.0</td><td>0.0</td><td>27.6%</td><td>14</td></tr><tr><td>Drevn</td><td><span class='badge melee'>Melee</span></td><td>0.0</td><td>0.0</td><td>60.6%</td><td>1</td></tr></tbody>
+          <tbody><tr><td>Infex</td><td><span class='badge dps'>DPS</span></td><td>3,491.0</td><td>75.2</td><td>5.6%</td><td>227</td></tr></tbody>
         </table>
       </section>
             
       <section class='panel'>
         <div class='panel-header'>
-          <h3>5. Hive&#x27;Zara Stinger</h3>
-          <div class='fight-meta'>GUID: 0xF130003BDF11FB4E • 16.9s • 74 snapshots</div>
+          <h3>5. Ayamiss the Hunter</h3>
+          <div class='fight-meta'>61.3s • 298 snapshots</div>
         </div>
         <table>
           <thead><tr><th>Player</th><th>Role</th><th>Threat Done</th><th>TPS</th><th>Avg Top %</th><th>Samples</th></tr></thead>
-          <tbody><tr><td>Helstar</td><td><span class='badge melee'>Melee</span></td><td>4,891.0</td><td>294.0</td><td>70.6%</td><td>60</td></tr><tr><td>Infex</td><td><span class='badge tank'>Tank</span></td><td>4,729.0</td><td>395.4</td><td>100.0%</td><td>50</td></tr><tr><td>Drevn</td><td><span class='badge melee'>Melee</span></td><td>3,072.0</td><td>287.5</td><td>72.4%</td><td>44</td></tr><tr><td>Deokrion</td><td><span class='badge melee'>Melee</span></td><td>951.0</td><td>85.7</td><td>57.2%</td><td>46</td></tr><tr><td>Zilches</td><td><span class='badge melee'>Melee</span></td><td>396.0</td><td>82.2</td><td>45.8%</td><td>24</td></tr><tr><td>Syilver</td><td><span class='badge melee'>Melee</span></td><td>143.0</td><td>34.8</td><td>48.5%</td><td>21</td></tr><tr><td>Paikeen</td><td><span class='badge ranged'>Ranged</span></td><td>55.0</td><td>98.0</td><td>25.7%</td><td>4</td></tr><tr><td>Dairytotem</td><td><span class='badge tank'>Tank</span></td><td>0.0</td><td>0.0</td><td>100.0%</td><td>1</td></tr><tr><td>Rotpotato</td><td><span class='badge tank'>Tank</span></td><td>0.0</td><td>0.0</td><td>78.0%</td><td>6</td></tr><tr><td>Cnatsplel</td><td><span class='badge melee'>Melee</span></td><td>0.0</td><td>0.0</td><td>60.0%</td><td>14</td></tr></tbody>
+          <tbody><tr><td>Infex</td><td><span class='badge tank'>Tank</span></td><td>14,039.0</td><td>255.2</td><td>91.9%</td><td>261</td></tr></tbody>
         </table>
       </section>
             
       <section class='panel'>
         <div class='panel-header'>
-          <h3>6. Hive&#x27;Zara Stinger</h3>
-          <div class='fight-meta'>GUID: 0xF130003BDF11FADD • 12.5s • 62 snapshots</div>
+          <h3>6. Ossirian the Unscarred</h3>
+          <div class='fight-meta'>137.8s • 673 snapshots</div>
         </div>
         <table>
           <thead><tr><th>Player</th><th>Role</th><th>Threat Done</th><th>TPS</th><th>Avg Top %</th><th>Samples</th></tr></thead>
-          <tbody><tr><td>Infex</td><td><span class='badge melee'>Melee</span></td><td>3,825.0</td><td>305.2</td><td>27.9%</td><td>62</td></tr><tr><td>Deokrion</td><td><span class='badge tank'>Tank</span></td><td>3,486.0</td><td>278.1</td><td>100.0%</td><td>62</td></tr><tr><td>Cnatsplel</td><td><span class='badge melee'>Melee</span></td><td>3,173.0</td><td>253.2</td><td>40.5%</td><td>46</td></tr><tr><td>Helstar</td><td><span class='badge melee'>Melee</span></td><td>1,778.0</td><td>177.1</td><td>48.7%</td><td>50</td></tr><tr><td>Drevn</td><td><span class='badge melee'>Melee</span></td><td>991.0</td><td>443.8</td><td>50.2%</td><td>12</td></tr><tr><td>Shadowfisk</td><td><span class='badge ranged'>Ranged</span></td><td>183.0</td><td>82.7</td><td>16.9%</td><td>12</td></tr><tr><td>Rotpotato</td><td><span class='badge melee'>Melee</span></td><td>0.0</td><td>0.0</td><td>18.6%</td><td>4</td></tr></tbody>
-        </table>
-      </section>
-            
-      <section class='panel'>
-        <div class='panel-header'>
-          <h3>7. Hive&#x27;Zara Stinger</h3>
-          <div class='fight-meta'>GUID: 0xF130003BDF11FAF0 • 12.3s • 61 snapshots</div>
-        </div>
-        <table>
-          <thead><tr><th>Player</th><th>Role</th><th>Threat Done</th><th>TPS</th><th>Avg Top %</th><th>Samples</th></tr></thead>
-          <tbody><tr><td>Helstar</td><td><span class='badge tank'>Tank</span></td><td>6,283.0</td><td>508.9</td><td>78.9%</td><td>40</td></tr><tr><td>Deokrion</td><td><span class='badge melee'>Melee</span></td><td>5,899.0</td><td>477.8</td><td>85.3%</td><td>58</td></tr><tr><td>Drevn</td><td><span class='badge melee'>Melee</span></td><td>3,247.0</td><td>286.3</td><td>71.1%</td><td>56</td></tr><tr><td>Infex</td><td><span class='badge ranged'>Ranged</span></td><td>2,740.0</td><td>221.9</td><td>12.9%</td><td>61</td></tr><tr><td>Rotpotato</td><td><span class='badge ranged'>Ranged</span></td><td>1,450.0</td><td>176.2</td><td>52.8%</td><td>28</td></tr><tr><td>Shadowfisk</td><td><span class='badge melee'>Melee</span></td><td>0.0</td><td>0.0</td><td>54.2%</td><td>1</td></tr></tbody>
-        </table>
-      </section>
-            
-      <section class='panel'>
-        <div class='panel-header'>
-          <h3>8. Hive&#x27;Zara Stinger</h3>
-          <div class='fight-meta'>GUID: 0xF130003BDF11FAF5 • 14.0s • 68 snapshots</div>
-        </div>
-        <table>
-          <thead><tr><th>Player</th><th>Role</th><th>Threat Done</th><th>TPS</th><th>Avg Top %</th><th>Samples</th></tr></thead>
-          <tbody><tr><td>Infex</td><td><span class='badge melee'>Melee</span></td><td>6,553.0</td><td>577.7</td><td>75.8%</td><td>56</td></tr><tr><td>Helstar</td><td><span class='badge tank'>Tank</span></td><td>6,188.0</td><td>442.9</td><td>90.8%</td><td>68</td></tr><tr><td>Drevn</td><td><span class='badge melee'>Melee</span></td><td>6,020.0</td><td>451.9</td><td>74.9%</td><td>65</td></tr><tr><td>Cnatsplel</td><td><span class='badge melee'>Melee</span></td><td>4,634.0</td><td>338.3</td><td>69.7%</td><td>67</td></tr></tbody>
-        </table>
-      </section>
-            
-      <section class='panel'>
-        <div class='panel-header'>
-          <h3>9. Kurinnaxx</h3>
-          <div class='fight-meta'>GUID: 0xF130003BF40162B5 • 51.3s • 250 snapshots</div>
-        </div>
-        <table>
-          <thead><tr><th>Player</th><th>Role</th><th>Threat Done</th><th>TPS</th><th>Avg Top %</th><th>Samples</th></tr></thead>
-          <tbody><tr><td>Helstar</td><td><span class='badge tank'>Tank</span></td><td>30,902.0</td><td>602.7</td><td>98.8%</td><td>245</td></tr><tr><td>Cnatsplel</td><td><span class='badge melee'>Melee</span></td><td>25,136.0</td><td>514.8</td><td>74.1%</td><td>188</td></tr><tr><td>Deokrion</td><td><span class='badge melee'>Melee</span></td><td>22,807.0</td><td>482.6</td><td>67.2%</td><td>194</td></tr><tr><td>Infex</td><td><span class='badge ranged'>Ranged</span></td><td>21,165.0</td><td>450.1</td><td>59.8%</td><td>229</td></tr><tr><td>Qyii</td><td><span class='badge ranged'>Ranged</span></td><td>8,039.0</td><td>392.0</td><td>53.7%</td><td>67</td></tr><tr><td>Drevn</td><td><span class='badge melee'>Melee</span></td><td>5,736.0</td><td>543.0</td><td>58.6%</td><td>21</td></tr><tr><td>Paikeen</td><td><span class='badge melee'>Melee</span></td><td>644.0</td><td>291.5</td><td>46.5%</td><td>7</td></tr><tr><td>Airmiles</td><td><span class='badge ranged'>Ranged</span></td><td>273.0</td><td>358.3</td><td>39.6%</td><td>5</td></tr><tr><td>Shadowfisk</td><td><span class='badge ranged'>Ranged</span></td><td>0.0</td><td>0.0</td><td>42.5%</td><td>3</td></tr></tbody>
-        </table>
-      </section>
-            
-      <section class='panel'>
-        <div class='panel-header'>
-          <h3>10. Hive&#x27;Zara Stinger</h3>
-          <div class='fight-meta'>GUID: 0xF130003BDF11FAF8 • 18.6s • 91 snapshots</div>
-        </div>
-        <table>
-          <thead><tr><th>Player</th><th>Role</th><th>Threat Done</th><th>TPS</th><th>Avg Top %</th><th>Samples</th></tr></thead>
-          <tbody><tr><td>Infex</td><td><span class='badge melee'>Melee</span></td><td>6,543.0</td><td>463.4</td><td>67.5%</td><td>69</td></tr><tr><td>Drevn</td><td><span class='badge melee'>Melee</span></td><td>6,536.0</td><td>350.9</td><td>65.5%</td><td>91</td></tr><tr><td>Helstar</td><td><span class='badge tank'>Tank</span></td><td>5,443.0</td><td>292.3</td><td>99.3%</td><td>91</td></tr><tr><td>Cnatsplel</td><td><span class='badge melee'>Melee</span></td><td>923.0</td><td>85.6</td><td>23.2%</td><td>47</td></tr><tr><td>Morphmonga</td><td><span class='badge melee'>Melee</span></td><td>756.0</td><td>127.0</td><td>11.0%</td><td>30</td></tr><tr><td>Rotpotato</td><td><span class='badge ranged'>Ranged</span></td><td>181.0</td><td>167.0</td><td>20.8%</td><td>6</td></tr><tr><td>Paikeen</td><td><span class='badge melee'>Melee</span></td><td>0.0</td><td>0.0</td><td>2.0%</td><td>8</td></tr></tbody>
-        </table>
-      </section>
-            
-      <section class='panel'>
-        <div class='panel-header'>
-          <h3>11. Captain Qeez</h3>
-          <div class='fight-meta'>GUID: 0xF130003C1F11FB5D • 22.3s • 109 snapshots</div>
-        </div>
-        <table>
-          <thead><tr><th>Player</th><th>Role</th><th>Threat Done</th><th>TPS</th><th>Avg Top %</th><th>Samples</th></tr></thead>
-          <tbody><tr><td>Helstar</td><td><span class='badge tank'>Tank</span></td><td>7,105.0</td><td>318.3</td><td>94.7%</td><td>109</td></tr><tr><td>Infex</td><td><span class='badge ranged'>Ranged</span></td><td>5,191.0</td><td>302.4</td><td>77.6%</td><td>84</td></tr><tr><td>Rotpotato</td><td><span class='badge ranged'>Ranged</span></td><td>2,211.0</td><td>306.6</td><td>39.7%</td><td>36</td></tr><tr><td>Deokrion</td><td><span class='badge ranged'>Ranged</span></td><td>1,554.0</td><td>88.2</td><td>31.4%</td><td>86</td></tr><tr><td>Morphmonga</td><td><span class='badge ranged'>Ranged</span></td><td>1,136.0</td><td>134.3</td><td>17.0%</td><td>33</td></tr><tr><td>Qyii</td><td><span class='badge ranged'>Ranged</span></td><td>485.0</td><td>118.0</td><td>16.0%</td><td>9</td></tr><tr><td>Lieutenant General Andorov</td><td><span class='badge melee'>Melee</span></td><td>468.0</td><td>102.6</td><td>39.3%</td><td>23</td></tr><tr><td>Syilver</td><td><span class='badge ranged'>Ranged</span></td><td>123.0</td><td>37.2</td><td>7.3%</td><td>17</td></tr><tr><td>Magma Totem IV</td><td><span class='badge ranged'>Ranged</span></td><td>0.0</td><td>0.0</td><td>4.5%</td><td>4</td></tr><tr><td>Stoneclaw Totem VI</td><td><span class='badge melee'>Melee</span></td><td>0.0</td><td>0.0</td><td>1.3%</td><td>4</td></tr><tr><td>Paikeen</td><td><span class='badge melee'>Melee</span></td><td>0.0</td><td>0.0</td><td>3.4%</td><td>4</td></tr></tbody>
-        </table>
-      </section>
-            
-      <section class='panel'>
-        <div class='panel-header'>
-          <h3>12. Captain Drenn</h3>
-          <div class='fight-meta'>GUID: 0xF130003C1D11FBFD • 19.6s • 95 snapshots</div>
-        </div>
-        <table>
-          <thead><tr><th>Player</th><th>Role</th><th>Threat Done</th><th>TPS</th><th>Avg Top %</th><th>Samples</th></tr></thead>
-          <tbody><tr><td>Helstar</td><td><span class='badge tank'>Tank</span></td><td>12,435.0</td><td>648.6</td><td>100.0%</td><td>93</td></tr><tr><td>Infex</td><td><span class='badge ranged'>Ranged</span></td><td>5,781.0</td><td>386.4</td><td>25.6%</td><td>73</td></tr><tr><td>Lieutenant General Andorov</td><td><span class='badge melee'>Melee</span></td><td>3,037.0</td><td>191.9</td><td>24.3%</td><td>72</td></tr><tr><td>Kaldorei Elite</td><td><span class='badge melee'>Melee</span></td><td>3,018.0</td><td>198.1</td><td>23.8%</td><td>22</td></tr><tr><td>Deokrion</td><td><span class='badge melee'>Melee</span></td><td>1,930.0</td><td>109.2</td><td>29.6%</td><td>29</td></tr><tr><td>Morphmonga</td><td><span class='badge ranged'>Ranged</span></td><td>126.0</td><td>87.1</td><td>7.9%</td><td>6</td></tr><tr><td>Qyii</td><td><span class='badge ranged'>Ranged</span></td><td>115.0</td><td>93.1</td><td>9.4%</td><td>4</td></tr><tr><td>Paikeen</td><td><span class='badge melee'>Melee</span></td><td>26.0</td><td>17.2</td><td>4.8%</td><td>5</td></tr><tr><td>Cnatsplel</td><td><span class='badge ranged'>Ranged</span></td><td>12.0</td><td>1.2</td><td>16.1%</td><td>49</td></tr><tr><td>Stoneclaw Totem VI</td><td><span class='badge melee'>Melee</span></td><td>0.0</td><td>0.0</td><td>4.3%</td><td>5</td></tr></tbody>
-        </table>
-      </section>
-            
-      <section class='panel'>
-        <div class='panel-header'>
-          <h3>13. Captain Xurrem</h3>
-          <div class='fight-meta'>GUID: 0xF130003C1E11FC01 • 28.6s • 138 snapshots</div>
-        </div>
-        <table>
-          <thead><tr><th>Player</th><th>Role</th><th>Threat Done</th><th>TPS</th><th>Avg Top %</th><th>Samples</th></tr></thead>
-          <tbody><tr><td>Helstar</td><td><span class='badge tank'>Tank</span></td><td>8,748.0</td><td>413.9</td><td>100.0%</td><td>102</td></tr><tr><td>Infex</td><td><span class='badge ranged'>Ranged</span></td><td>5,075.0</td><td>271.9</td><td>35.1%</td><td>90</td></tr><tr><td>Lieutenant General Andorov</td><td><span class='badge melee'>Melee</span></td><td>2,176.0</td><td>314.9</td><td>29.2%</td><td>16</td></tr><tr><td>Deokrion</td><td><span class='badge ranged'>Ranged</span></td><td>1,853.0</td><td>101.9</td><td>20.7%</td><td>78</td></tr><tr><td>Kaldorei Elite</td><td><span class='badge melee'>Melee</span></td><td>1,612.0</td><td>263.5</td><td>28.3%</td><td>41</td></tr><tr><td>Morphmonga</td><td><span class='badge ranged'>Ranged</span></td><td>760.0</td><td>75.4</td><td>10.9%</td><td>46</td></tr><tr><td>Taoz</td><td><span class='badge ranged'>Ranged</span></td><td>12.0</td><td>1.7</td><td>39.8%</td><td>36</td></tr><tr><td>Dairytotem</td><td><span class='badge tank'>Tank</span></td><td>0.0</td><td>0.0</td><td>79.7%</td><td>35</td></tr><tr><td>Airmiles</td><td><span class='badge ranged'>Ranged</span></td><td>0.0</td><td>0.0</td><td>49.6%</td><td>27</td></tr><tr><td>Cnatsplel</td><td><span class='badge ranged'>Ranged</span></td><td>0.0</td><td>0.0</td><td>8.7%</td><td>3</td></tr><tr><td>Qyii</td><td><span class='badge ranged'>Ranged</span></td><td>0.0</td><td>0.0</td><td>13.7%</td><td>10</td></tr></tbody>
-        </table>
-      </section>
-            
-      <section class='panel'>
-        <div class='panel-header'>
-          <h3>14. Major Yeggeth</h3>
-          <div class='fight-meta'>GUID: 0xF130003C1A11FBFE • 37.5s • 183 snapshots</div>
-        </div>
-        <table>
-          <thead><tr><th>Player</th><th>Role</th><th>Threat Done</th><th>TPS</th><th>Avg Top %</th><th>Samples</th></tr></thead>
-          <tbody><tr><td>Helstar</td><td><span class='badge tank'>Tank</span></td><td>8,816.0</td><td>298.2</td><td>90.0%</td><td>141</td></tr><tr><td>Deokrion</td><td><span class='badge melee'>Melee</span></td><td>3,298.0</td><td>113.4</td><td>58.5%</td><td>142</td></tr><tr><td>Infex</td><td><span class='badge ranged'>Ranged</span></td><td>1,210.0</td><td>58.0</td><td>22.2%</td><td>102</td></tr><tr><td>Zilches</td><td><span class='badge ranged'>Ranged</span></td><td>956.0</td><td>64.6</td><td>29.0%</td><td>73</td></tr><tr><td>Kaldorei Elite</td><td><span class='badge melee'>Melee</span></td><td>865.0</td><td>691.4</td><td>39.9%</td><td>7</td></tr><tr><td>Taoz</td><td><span class='badge ranged'>Ranged</span></td><td>226.0</td><td>13.1</td><td>54.7%</td><td>47</td></tr><tr><td>Dairytotem</td><td><span class='badge ranged'>Ranged</span></td><td>224.0</td><td>14.5</td><td>49.6%</td><td>49</td></tr><tr><td>Paikeen</td><td><span class='badge tank'>Tank</span></td><td>175.0</td><td>11.0</td><td>80.1%</td><td>72</td></tr><tr><td>Morphmonga</td><td><span class='badge ranged'>Ranged</span></td><td>0.0</td><td>0.0</td><td>17.3%</td><td>6</td></tr><tr><td>Lieutenant General Andorov</td><td><span class='badge melee'>Melee</span></td><td>0.0</td><td>0.0</td><td>26.7%</td><td>9</td></tr><tr><td>Drevn</td><td><span class='badge melee'>Melee</span></td><td>0.0</td><td>0.0</td><td>28.3%</td><td>3</td></tr></tbody>
-        </table>
-      </section>
-            
-      <section class='panel'>
-        <div class='panel-header'>
-          <h3>15. Major Pakkon</h3>
-          <div class='fight-meta'>GUID: 0xF130003C1C11FC00 • 28.8s • 139 snapshots</div>
-        </div>
-        <table>
-          <thead><tr><th>Player</th><th>Role</th><th>Threat Done</th><th>TPS</th><th>Avg Top %</th><th>Samples</th></tr></thead>
-          <tbody><tr><td>Helstar</td><td><span class='badge tank'>Tank</span></td><td>10,095.0</td><td>416.0</td><td>100.0%</td><td>117</td></tr><tr><td>Infex</td><td><span class='badge ranged'>Ranged</span></td><td>7,700.0</td><td>346.7</td><td>68.6%</td><td>107</td></tr><tr><td>Lieutenant General Andorov</td><td><span class='badge melee'>Melee</span></td><td>3,079.0</td><td>432.9</td><td>35.0%</td><td>35</td></tr><tr><td>Qyii</td><td><span class='badge ranged'>Ranged</span></td><td>2,356.0</td><td>177.9</td><td>32.6%</td><td>64</td></tr><tr><td>Deokrion</td><td><span class='badge ranged'>Ranged</span></td><td>1,337.0</td><td>69.2</td><td>43.3%</td><td>94</td></tr><tr><td>Syilver</td><td><span class='badge ranged'>Ranged</span></td><td>945.0</td><td>96.3</td><td>25.5%</td><td>29</td></tr><tr><td>Morphmonga</td><td><span class='badge ranged'>Ranged</span></td><td>630.0</td><td>125.2</td><td>18.8%</td><td>18</td></tr><tr><td>Cnatsplel</td><td><span class='badge ranged'>Ranged</span></td><td>305.0</td><td>46.2</td><td>14.1%</td><td>12</td></tr><tr><td>Paikeen</td><td><span class='badge ranged'>Ranged</span></td><td>0.0</td><td>0.0</td><td>52.1%</td><td>17</td></tr><tr><td>Drevn</td><td><span class='badge ranged'>Ranged</span></td><td>0.0</td><td>0.0</td><td>9.6%</td><td>8</td></tr><tr><td>Dairytotem</td><td><span class='badge ranged'>Ranged</span></td><td>0.0</td><td>0.0</td><td>14.5%</td><td>10</td></tr></tbody>
-        </table>
-      </section>
-            
-      <section class='panel'>
-        <div class='panel-header'>
-          <h3>16. Colonel Zerran</h3>
-          <div class='fight-meta'>GUID: 0xF130003C1911FBFF • 32.9s • 160 snapshots</div>
-        </div>
-        <table>
-          <thead><tr><th>Player</th><th>Role</th><th>Threat Done</th><th>TPS</th><th>Avg Top %</th><th>Samples</th></tr></thead>
-          <tbody><tr><td>Helstar</td><td><span class='badge tank'>Tank</span></td><td>14,449.0</td><td>539.8</td><td>99.1%</td><td>130</td></tr><tr><td>Infex</td><td><span class='badge ranged'>Ranged</span></td><td>8,120.0</td><td>362.1</td><td>41.8%</td><td>109</td></tr><tr><td>Cnatsplel</td><td><span class='badge ranged'>Ranged</span></td><td>2,655.0</td><td>80.6</td><td>10.9%</td><td>35</td></tr><tr><td>Deokrion</td><td><span class='badge ranged'>Ranged</span></td><td>2,123.0</td><td>73.6</td><td>16.1%</td><td>130</td></tr><tr><td>Qyii</td><td><span class='badge ranged'>Ranged</span></td><td>1,006.0</td><td>78.4</td><td>12.0%</td><td>63</td></tr><tr><td>Morphmonga</td><td><span class='badge ranged'>Ranged</span></td><td>851.0</td><td>83.1</td><td>11.1%</td><td>26</td></tr><tr><td>Shadowfisk</td><td><span class='badge ranged'>Ranged</span></td><td>630.0</td><td>84.0</td><td>10.7%</td><td>19</td></tr><tr><td>Syilver</td><td><span class='badge ranged'>Ranged</span></td><td>123.0</td><td>83.8</td><td>10.7%</td><td>7</td></tr><tr><td>Taoz</td><td><span class='badge tank'>Tank</span></td><td>48.0</td><td>6.0</td><td>87.1%</td><td>40</td></tr><tr><td>Paikeen</td><td><span class='badge ranged'>Ranged</span></td><td>14.0</td><td>7.5</td><td>37.4%</td><td>10</td></tr></tbody>
-        </table>
-      </section>
-            
-      <section class='panel'>
-        <div class='panel-header'>
-          <h3>17. General Rajaxx</h3>
-          <div class='fight-meta'>GUID: 0xF130003BED0162F7 • 54.9s • 267 snapshots</div>
-        </div>
-        <table>
-          <thead><tr><th>Player</th><th>Role</th><th>Threat Done</th><th>TPS</th><th>Avg Top %</th><th>Samples</th></tr></thead>
-          <tbody><tr><td>Helstar</td><td><span class='badge tank'>Tank</span></td><td>30,676.0</td><td>627.1</td><td>94.4%</td><td>227</td></tr><tr><td>Deokrion</td><td><span class='badge melee'>Melee</span></td><td>30,498.0</td><td>647.0</td><td>86.4%</td><td>205</td></tr><tr><td>Lieutenant General Andorov</td><td><span class='badge melee'>Melee</span></td><td>28,931.0</td><td>627.6</td><td>82.5%</td><td>224</td></tr><tr><td>Infex</td><td><span class='badge ranged'>Ranged</span></td><td>22,653.0</td><td>412.3</td><td>62.1%</td><td>267</td></tr><tr><td>Cnatsplel</td><td><span class='badge melee'>Melee</span></td><td>13,509.0</td><td>505.0</td><td>50.1%</td><td>22</td></tr><tr><td>Paikeen</td><td><span class='badge ranged'>Ranged</span></td><td>1,024.0</td><td>226.1</td><td>26.4%</td><td>13</td></tr><tr><td>Morphmonga</td><td><span class='badge ranged'>Ranged</span></td><td>0.0</td><td>0.0</td><td>13.7%</td><td>4</td></tr><tr><td>Drevn</td><td><span class='badge melee'>Melee</span></td><td>0.0</td><td>0.0</td><td>29.9%</td><td>2</td></tr><tr><td>Qyii</td><td><span class='badge melee'>Melee</span></td><td>0.0</td><td>0.0</td><td>23.1%</td><td>1</td></tr><tr><td>Rotpotato</td><td><span class='badge ranged'>Ranged</span></td><td>0.0</td><td>0.0</td><td>55.0%</td><td>1</td></tr></tbody>
-        </table>
-      </section>
-            
-      <section class='panel'>
-        <div class='panel-header'>
-          <h3>18. Qiraji Gladiator</h3>
-          <div class='fight-meta'>GUID: 0xF130003BDC11FACC • 11.7s • 57 snapshots</div>
-        </div>
-        <table>
-          <thead><tr><th>Player</th><th>Role</th><th>Threat Done</th><th>TPS</th><th>Avg Top %</th><th>Samples</th></tr></thead>
-          <tbody><tr><td>Helstar</td><td><span class='badge tank'>Tank</span></td><td>8,718.0</td><td>747.9</td><td>100.0%</td><td>57</td></tr><tr><td>Cnatsplel</td><td><span class='badge melee'>Melee</span></td><td>5,434.0</td><td>553.0</td><td>28.5%</td><td>36</td></tr><tr><td>Drevn</td><td><span class='badge melee'>Melee</span></td><td>4,339.0</td><td>432.2</td><td>56.9%</td><td>49</td></tr><tr><td>Infex</td><td><span class='badge ranged'>Ranged</span></td><td>2,173.0</td><td>301.6</td><td>27.4%</td><td>35</td></tr><tr><td>Qyii</td><td><span class='badge ranged'>Ranged</span></td><td>0.0</td><td>0.0</td><td>9.2%</td><td>4</td></tr><tr><td>Paikeen</td><td><span class='badge melee'>Melee</span></td><td>0.0</td><td>0.0</td><td>19.3%</td><td>8</td></tr></tbody>
-        </table>
-      </section>
-            
-      <section class='panel'>
-        <div class='panel-header'>
-          <h3>19. Qiraji Gladiator</h3>
-          <div class='fight-meta'>GUID: 0xF130003BDC11FACD • 11.3s • 56 snapshots</div>
-        </div>
-        <table>
-          <thead><tr><th>Player</th><th>Role</th><th>Threat Done</th><th>TPS</th><th>Avg Top %</th><th>Samples</th></tr></thead>
-          <tbody><tr><td>Helstar</td><td><span class='badge tank'>Tank</span></td><td>5,602.0</td><td>497.2</td><td>86.3%</td><td>56</td></tr><tr><td>Drevn</td><td><span class='badge melee'>Melee</span></td><td>3,340.0</td><td>384.7</td><td>55.1%</td><td>42</td></tr><tr><td>Infex</td><td><span class='badge ranged'>Ranged</span></td><td>2,608.0</td><td>394.9</td><td>54.1%</td><td>33</td></tr><tr><td>Rotpotato</td><td><span class='badge ranged'>Ranged</span></td><td>2,112.0</td><td>632.7</td><td>45.0%</td><td>13</td></tr><tr><td>Cnatsplel</td><td><span class='badge melee'>Melee</span></td><td>1,701.0</td><td>320.1</td><td>41.5%</td><td>12</td></tr><tr><td>Dairytotem</td><td><span class='badge ranged'>Ranged</span></td><td>1,007.0</td><td>130.8</td><td>51.9%</td><td>27</td></tr><tr><td>Qyii</td><td><span class='badge ranged'>Ranged</span></td><td>628.0</td><td>238.5</td><td>21.6%</td><td>2</td></tr><tr><td>Shadowfisk</td><td><span class='badge ranged'>Ranged</span></td><td>97.0</td><td>214.1</td><td>25.9%</td><td>3</td></tr><tr><td>Paikeen</td><td><span class='badge tank'>Tank</span></td><td>0.0</td><td>0.0</td><td>75.1%</td><td>13</td></tr></tbody>
-        </table>
-      </section>
-            
-      <section class='panel'>
-        <div class='panel-header'>
-          <h3>20. Flesh Hunter</h3>
-          <div class='fight-meta'>GUID: 0xF130003BE7014F7D • 13.1s • 65 snapshots</div>
-        </div>
-        <table>
-          <thead><tr><th>Player</th><th>Role</th><th>Threat Done</th><th>TPS</th><th>Avg Top %</th><th>Samples</th></tr></thead>
-          <tbody><tr><td>Helstar</td><td><span class='badge tank'>Tank</span></td><td>6,010.0</td><td>459.2</td><td>99.1%</td><td>65</td></tr><tr><td>Infex</td><td><span class='badge ranged'>Ranged</span></td><td>4,112.0</td><td>438.2</td><td>34.1%</td><td>47</td></tr><tr><td>Cnatsplel</td><td><span class='badge melee'>Melee</span></td><td>2,715.0</td><td>319.5</td><td>36.3%</td><td>24</td></tr><tr><td>Airmiles</td><td><span class='badge ranged'>Ranged</span></td><td>1,299.0</td><td>404.4</td><td>30.3%</td><td>12</td></tr><tr><td>Paikeen</td><td><span class='badge melee'>Melee</span></td><td>871.0</td><td>134.4</td><td>17.9%</td><td>30</td></tr><tr><td>Rotpotato</td><td><span class='badge ranged'>Ranged</span></td><td>463.0</td><td>589.8</td><td>34.7%</td><td>4</td></tr><tr><td>Drevn</td><td><span class='badge melee'>Melee</span></td><td>373.0</td><td>101.8</td><td>57.6%</td><td>19</td></tr><tr><td>Qyii</td><td><span class='badge ranged'>Ranged</span></td><td>323.0</td><td>275.1</td><td>26.5%</td><td>7</td></tr><tr><td>Morphmonga</td><td><span class='badge ranged'>Ranged</span></td><td>139.0</td><td>45.6</td><td>10.8%</td><td>3</td></tr><tr><td>Shadowfisk</td><td><span class='badge ranged'>Ranged</span></td><td>0.0</td><td>0.0</td><td>33.6%</td><td>1</td></tr><tr><td>Deokrion</td><td><span class='badge melee'>Melee</span></td><td>0.0</td><td>0.0</td><td>58.9%</td><td>1</td></tr></tbody>
-        </table>
-      </section>
-            
-      <section class='panel'>
-        <div class='panel-header'>
-          <h3>21. Hive&#x27;Zara Soldier</h3>
-          <div class='fight-meta'>GUID: 0xF130003BD811FB95 • 12.7s • 47 snapshots</div>
-        </div>
-        <table>
-          <thead><tr><th>Player</th><th>Role</th><th>Threat Done</th><th>TPS</th><th>Avg Top %</th><th>Samples</th></tr></thead>
-          <tbody><tr><td>Infex</td><td><span class='badge ranged'>Ranged</span></td><td>4,176.0</td><td>543.4</td><td>67.5%</td><td>38</td></tr><tr><td>Deokrion</td><td><span class='badge melee'>Melee</span></td><td>3,827.0</td><td>334.1</td><td>86.2%</td><td>41</td></tr><tr><td>Cnatsplel</td><td><span class='badge tank'>Tank</span></td><td>3,636.0</td><td>473.1</td><td>92.1%</td><td>38</td></tr><tr><td>Helstar</td><td><span class='badge melee'>Melee</span></td><td>2,183.0</td><td>172.3</td><td>47.4%</td><td>36</td></tr><tr><td>Morphmonga</td><td><span class='badge ranged'>Ranged</span></td><td>887.0</td><td>133.2</td><td>24.5%</td><td>11</td></tr><tr><td>Stoneclaw Totem VI</td><td><span class='badge ranged'>Ranged</span></td><td>0.0</td><td>0.0</td><td>5.8%</td><td>3</td></tr></tbody>
-        </table>
-      </section>
-            
-      <section class='panel'>
-        <div class='panel-header'>
-          <h3>22. Flesh Hunter</h3>
-          <div class='fight-meta'>GUID: 0xF130003BE711FB9F • 11.3s • 56 snapshots</div>
-        </div>
-        <table>
-          <thead><tr><th>Player</th><th>Role</th><th>Threat Done</th><th>TPS</th><th>Avg Top %</th><th>Samples</th></tr></thead>
-          <tbody><tr><td>Cnatsplel</td><td><span class='badge melee'>Melee</span></td><td>3,798.0</td><td>411.5</td><td>52.0%</td><td>46</td></tr><tr><td>Deokrion</td><td><span class='badge tank'>Tank</span></td><td>3,434.0</td><td>937.2</td><td>100.0%</td><td>19</td></tr><tr><td>Helstar</td><td><span class='badge tank'>Tank</span></td><td>2,998.0</td><td>454.5</td><td>100.0%</td><td>33</td></tr><tr><td>Infex</td><td><span class='badge melee'>Melee</span></td><td>2,229.0</td><td>331.3</td><td>59.1%</td><td>34</td></tr><tr><td>Airmiles</td><td><span class='badge ranged'>Ranged</span></td><td>2,007.0</td><td>270.6</td><td>22.8%</td><td>31</td></tr><tr><td>Drevn</td><td><span class='badge melee'>Melee</span></td><td>1,636.0</td><td>361.4</td><td>45.5%</td><td>17</td></tr><tr><td>Paikeen</td><td><span class='badge melee'>Melee</span></td><td>0.0</td><td>0.0</td><td>16.7%</td><td>4</td></tr></tbody>
-        </table>
-      </section>
-            
-      <section class='panel'>
-        <div class='panel-header'>
-          <h3>23. Buru the Gorger</h3>
-          <div class='fight-meta'>GUID: 0xF130003C0A0162F9 • 112.4s • 480 snapshots</div>
-        </div>
-        <table>
-          <thead><tr><th>Player</th><th>Role</th><th>Threat Done</th><th>TPS</th><th>Avg Top %</th><th>Samples</th></tr></thead>
-          <tbody><tr><td>Paikeen</td><td><span class='badge tank'>Tank</span></td><td>999,906.0</td><td>17,274.3</td><td>62.8%</td><td>130</td></tr><tr><td>Deokrion</td><td><span class='badge melee'>Melee</span></td><td>7,659.0</td><td>69.8</td><td>65.6%</td><td>47</td></tr><tr><td>Cnatsplel</td><td><span class='badge melee'>Melee</span></td><td>5,471.0</td><td>49.9</td><td>41.8%</td><td>243</td></tr><tr><td>Drevn</td><td><span class='badge melee'>Melee</span></td><td>3,766.0</td><td>62.0</td><td>39.7%</td><td>227</td></tr><tr><td>Rotpotato</td><td><span class='badge ranged'>Ranged</span></td><td>3,030.0</td><td>36.2</td><td>34.3%</td><td>95</td></tr><tr><td>Morphmonga</td><td><span class='badge ranged'>Ranged</span></td><td>1,005.0</td><td>16.0</td><td>6.0%</td><td>58</td></tr><tr><td>Helstar</td><td><span class='badge melee'>Melee</span></td><td>684.0</td><td>7.5</td><td>24.8%</td><td>84</td></tr><tr><td>Shadowfisk</td><td><span class='badge ranged'>Ranged</span></td><td>280.0</td><td>3.4</td><td>34.2%</td><td>253</td></tr><tr><td>Infex</td><td><span class='badge ranged'>Ranged</span></td><td>0.0</td><td>0.0</td><td>47.1%</td><td>448</td></tr><tr><td>Syilver</td><td><span class='badge ranged'>Ranged</span></td><td>0.0</td><td>0.0</td><td>49.4%</td><td>86</td></tr><tr><td>Dairytotem</td><td><span class='badge ranged'>Ranged</span></td><td>0.0</td><td>0.0</td><td>0.0%</td><td>23</td></tr><tr><td>Zilches</td><td><span class='badge ranged'>Ranged</span></td><td>0.0</td><td>0.0</td><td>35.9%</td><td>74</td></tr><tr><td>Airmiles</td><td><span class='badge tank'>Tank</span></td><td>0.0</td><td>0.0</td><td>100.0%</td><td>69</td></tr></tbody>
-        </table>
-      </section>
-            
-      <section class='panel'>
-        <div class='panel-header'>
-          <h3>24. Hive&#x27;Zara Soldier</h3>
-          <div class='fight-meta'>GUID: 0xF130003BD811FB9E • 14.7s • 73 snapshots</div>
-        </div>
-        <table>
-          <thead><tr><th>Player</th><th>Role</th><th>Threat Done</th><th>TPS</th><th>Avg Top %</th><th>Samples</th></tr></thead>
-          <tbody><tr><td>Infex</td><td><span class='badge ranged'>Ranged</span></td><td>4,430.0</td><td>494.6</td><td>74.3%</td><td>45</td></tr><tr><td>Helstar</td><td><span class='badge tank'>Tank</span></td><td>3,609.0</td><td>245.1</td><td>100.0%</td><td>73</td></tr><tr><td>Rotpotato</td><td><span class='badge ranged'>Ranged</span></td><td>2,528.0</td><td>342.4</td><td>18.7%</td><td>29</td></tr><tr><td>Cnatsplel</td><td><span class='badge melee'>Melee</span></td><td>1,980.0</td><td>336.8</td><td>25.5%</td><td>23</td></tr><tr><td>Paikeen</td><td><span class='badge ranged'>Ranged</span></td><td>460.0</td><td>48.7</td><td>8.8%</td><td>47</td></tr><tr><td>Syilver</td><td><span class='badge ranged'>Ranged</span></td><td>86.0</td><td>128.6</td><td>18.8%</td><td>4</td></tr></tbody>
-        </table>
-      </section>
-            
-      <section class='panel'>
-        <div class='panel-header'>
-          <h3>25. Qiraji Gladiator</h3>
-          <div class='fight-meta'>GUID: 0xF130003BDC11FACF • 11.1s • 54 snapshots</div>
-        </div>
-        <table>
-          <thead><tr><th>Player</th><th>Role</th><th>Threat Done</th><th>TPS</th><th>Avg Top %</th><th>Samples</th></tr></thead>
-          <tbody><tr><td>Deokrion</td><td><span class='badge melee'>Melee</span></td><td>3,865.0</td><td>621.1</td><td>90.9%</td><td>31</td></tr><tr><td>Cnatsplel</td><td><span class='badge melee'>Melee</span></td><td>2,276.0</td><td>205.5</td><td>73.9%</td><td>31</td></tr><tr><td>Dairytotem</td><td><span class='badge tank'>Tank</span></td><td>432.0</td><td>93.0</td><td>87.3%</td><td>23</td></tr><tr><td>Infex</td><td><span class='badge ranged'>Ranged</span></td><td>268.0</td><td>24.2</td><td>55.0%</td><td>29</td></tr><tr><td>Paikeen</td><td><span class='badge ranged'>Ranged</span></td><td>200.0</td><td>44.8</td><td>58.6%</td><td>22</td></tr><tr><td>Taoz</td><td><span class='badge ranged'>Ranged</span></td><td>56.0</td><td>63.9</td><td>66.6%</td><td>5</td></tr><tr><td>Drevn</td><td><span class='badge tank'>Tank</span></td><td>0.0</td><td>0.0</td><td>73.7%</td><td>2</td></tr><tr><td>Helstar</td><td><span class='badge melee'>Melee</span></td><td>0.0</td><td>0.0</td><td>67.9%</td><td>44</td></tr><tr><td>Qyii</td><td><span class='badge ranged'>Ranged</span></td><td>0.0</td><td>0.0</td><td>48.1%</td><td>4</td></tr></tbody>
-        </table>
-      </section>
-            
-      <section class='panel'>
-        <div class='panel-header'>
-          <h3>26. Flesh Hunter</h3>
-          <div class='fight-meta'>GUID: 0xF130003BE711FC27 • 11.1s • 54 snapshots</div>
-        </div>
-        <table>
-          <thead><tr><th>Player</th><th>Role</th><th>Threat Done</th><th>TPS</th><th>Avg Top %</th><th>Samples</th></tr></thead>
-          <tbody><tr><td>Drevn</td><td><span class='badge tank'>Tank</span></td><td>8,055.0</td><td>773.4</td><td>95.0%</td><td>51</td></tr><tr><td>Helstar</td><td><span class='badge melee'>Melee</span></td><td>3,384.0</td><td>556.0</td><td>67.8%</td><td>30</td></tr><tr><td>Infex</td><td><span class='badge ranged'>Ranged</span></td><td>2,830.0</td><td>348.8</td><td>36.2%</td><td>40</td></tr><tr><td>Cnatsplel</td><td><span class='badge melee'>Melee</span></td><td>1,988.0</td><td>314.7</td><td>26.1%</td><td>8</td></tr><tr><td>Morphmonga</td><td><span class='badge ranged'>Ranged</span></td><td>1,544.0</td><td>161.0</td><td>17.6%</td><td>25</td></tr><tr><td>Paikeen</td><td><span class='badge melee'>Melee</span></td><td>552.0</td><td>106.4</td><td>21.1%</td><td>25</td></tr><tr><td>Deokrion</td><td><span class='badge melee'>Melee</span></td><td>365.0</td><td>117.5</td><td>78.1%</td><td>16</td></tr><tr><td>Qyii</td><td><span class='badge ranged'>Ranged</span></td><td>252.0</td><td>666.7</td><td>27.4%</td><td>3</td></tr></tbody>
-        </table>
-      </section>
-            
-      <section class='panel'>
-        <div class='panel-header'>
-          <h3>27. Moam</h3>
-          <div class='fight-meta'>GUID: 0xF130003BEC01631D • 48.1s • 235 snapshots</div>
-        </div>
-        <table>
-          <thead><tr><th>Player</th><th>Role</th><th>Threat Done</th><th>TPS</th><th>Avg Top %</th><th>Samples</th></tr></thead>
-          <tbody><tr><td>Helstar</td><td><span class='badge tank'>Tank</span></td><td>39,704.0</td><td>840.8</td><td>99.8%</td><td>231</td></tr><tr><td>Drevn</td><td><span class='badge melee'>Melee</span></td><td>30,697.0</td><td>647.4</td><td>60.8%</td><td>232</td></tr><tr><td>Cnatsplel</td><td><span class='badge melee'>Melee</span></td><td>24,492.0</td><td>525.0</td><td>54.1%</td><td>79</td></tr><tr><td>Deokrion</td><td><span class='badge melee'>Melee</span></td><td>16,895.0</td><td>494.3</td><td>51.9%</td><td>111</td></tr><tr><td>Infex</td><td><span class='badge ranged'>Ranged</span></td><td>3,491.0</td><td>75.2</td><td>5.6%</td><td>227</td></tr><tr><td>Qyii</td><td><span class='badge ranged'>Ranged</span></td><td>2,951.0</td><td>252.1</td><td>23.7%</td><td>15</td></tr><tr><td>Zilches</td><td><span class='badge ranged'>Ranged</span></td><td>732.0</td><td>179.1</td><td>24.9%</td><td>10</td></tr><tr><td>Airmiles</td><td><span class='badge ranged'>Ranged</span></td><td>601.0</td><td>133.5</td><td>24.4%</td><td>18</td></tr><tr><td>Morphmonga</td><td><span class='badge tank'>Tank</span></td><td>0.0</td><td>0.0</td><td>58.4%</td><td>4</td></tr></tbody>
-        </table>
-      </section>
-            
-      <section class='panel'>
-        <div class='panel-header'>
-          <h3>28. Anubisath Guardian</h3>
-          <div class='fight-meta'>GUID: 0xF130003BFB11FBDE • 16.6s • 82 snapshots</div>
-        </div>
-        <table>
-          <thead><tr><th>Player</th><th>Role</th><th>Threat Done</th><th>TPS</th><th>Avg Top %</th><th>Samples</th></tr></thead>
-          <tbody><tr><td>Helstar</td><td><span class='badge tank'>Tank</span></td><td>8,923.0</td><td>537.0</td><td>100.0%</td><td>82</td></tr><tr><td>Drevn</td><td><span class='badge melee'>Melee</span></td><td>7,928.0</td><td>477.2</td><td>47.7%</td><td>82</td></tr><tr><td>Rotpotato</td><td><span class='badge ranged'>Ranged</span></td><td>5,806.0</td><td>349.4</td><td>28.2%</td><td>10</td></tr><tr><td>Cnatsplel</td><td><span class='badge melee'>Melee</span></td><td>4,936.0</td><td>325.0</td><td>30.1%</td><td>75</td></tr><tr><td>Infex</td><td><span class='badge ranged'>Ranged</span></td><td>4,774.0</td><td>415.3</td><td>23.2%</td><td>57</td></tr></tbody>
-        </table>
-      </section>
-            
-      <section class='panel'>
-        <div class='panel-header'>
-          <h3>29. Anubisath Guardian</h3>
-          <div class='fight-meta'>GUID: 0xF130003BFB11FBDF • 15.9s • 78 snapshots</div>
-        </div>
-        <table>
-          <thead><tr><th>Player</th><th>Role</th><th>Threat Done</th><th>TPS</th><th>Avg Top %</th><th>Samples</th></tr></thead>
-          <tbody><tr><td>Helstar</td><td><span class='badge tank'>Tank</span></td><td>8,356.0</td><td>526.8</td><td>100.0%</td><td>78</td></tr><tr><td>Deokrion</td><td><span class='badge melee'>Melee</span></td><td>6,476.0</td><td>507.4</td><td>58.9%</td><td>63</td></tr><tr><td>Cnatsplel</td><td><span class='badge melee'>Melee</span></td><td>5,707.0</td><td>415.4</td><td>33.6%</td><td>52</td></tr><tr><td>Infex</td><td><span class='badge ranged'>Ranged</span></td><td>5,448.0</td><td>481.8</td><td>50.4%</td><td>56</td></tr><tr><td>Shadowfisk</td><td><span class='badge ranged'>Ranged</span></td><td>2,468.0</td><td>439.8</td><td>15.7%</td><td>16</td></tr></tbody>
-        </table>
-      </section>
-            
-      <section class='panel'>
-        <div class='panel-header'>
-          <h3>30. Anubisath Guardian</h3>
-          <div class='fight-meta'>GUID: 0xF130003BFB11FBDB • 20.5s • 41 snapshots</div>
-        </div>
-        <table>
-          <thead><tr><th>Player</th><th>Role</th><th>Threat Done</th><th>TPS</th><th>Avg Top %</th><th>Samples</th></tr></thead>
-          <tbody><tr><td>Helstar</td><td><span class='badge tank'>Tank</span></td><td>9,088.0</td><td>569.4</td><td>100.0%</td><td>30</td></tr><tr><td>Cnatsplel</td><td><span class='badge melee'>Melee</span></td><td>8,379.0</td><td>431.3</td><td>54.2%</td><td>36</td></tr><tr><td>Deokrion</td><td><span class='badge melee'>Melee</span></td><td>1,752.0</td><td>231.7</td><td>66.7%</td><td>23</td></tr><tr><td>Drevn</td><td><span class='badge melee'>Melee</span></td><td>1,293.0</td><td>527.5</td><td>61.6%</td><td>13</td></tr><tr><td>Morphmonga</td><td><span class='badge ranged'>Ranged</span></td><td>0.0</td><td>0.0</td><td>34.8%</td><td>5</td></tr><tr><td>Paikeen</td><td><span class='badge ranged'>Ranged</span></td><td>0.0</td><td>0.0</td><td>12.6%</td><td>7</td></tr><tr><td>Zilches</td><td><span class='badge ranged'>Ranged</span></td><td>0.0</td><td>0.0</td><td>27.8%</td><td>4</td></tr></tbody>
-        </table>
-      </section>
-            
-      <section class='panel'>
-        <div class='panel-header'>
-          <h3>31. Anubisath Guardian</h3>
-          <div class='fight-meta'>GUID: 0xF130003BFB11FBE1 • 16.7s • 82 snapshots</div>
-        </div>
-        <table>
-          <thead><tr><th>Player</th><th>Role</th><th>Threat Done</th><th>TPS</th><th>Avg Top %</th><th>Samples</th></tr></thead>
-          <tbody><tr><td>Helstar</td><td><span class='badge tank'>Tank</span></td><td>7,935.0</td><td>475.7</td><td>100.0%</td><td>82</td></tr><tr><td>Shadowfisk</td><td><span class='badge ranged'>Ranged</span></td><td>5,070.0</td><td>627.5</td><td>38.7%</td><td>40</td></tr><tr><td>Infex</td><td><span class='badge ranged'>Ranged</span></td><td>4,397.0</td><td>367.8</td><td>37.7%</td><td>59</td></tr><tr><td>Deokrion</td><td><span class='badge melee'>Melee</span></td><td>2,743.0</td><td>183.3</td><td>44.9%</td><td>74</td></tr><tr><td>Cnatsplel</td><td><span class='badge melee'>Melee</span></td><td>2,609.0</td><td>362.9</td><td>38.6%</td><td>36</td></tr><tr><td>Rotpotato</td><td><span class='badge ranged'>Ranged</span></td><td>0.0</td><td>0.0</td><td>32.6%</td><td>1</td></tr></tbody>
-        </table>
-      </section>
-            
-      <section class='panel'>
-        <div class='panel-header'>
-          <h3>32. Anubisath Guardian</h3>
-          <div class='fight-meta'>GUID: 0xF130003BFB0155C3 • 11.2s • 35 snapshots</div>
-        </div>
-        <table>
-          <thead><tr><th>Player</th><th>Role</th><th>Threat Done</th><th>TPS</th><th>Avg Top %</th><th>Samples</th></tr></thead>
-          <tbody><tr><td>Helstar</td><td><span class='badge tank'>Tank</span></td><td>6,651.0</td><td>594.3</td><td>100.0%</td><td>35</td></tr><tr><td>Cnatsplel</td><td><span class='badge melee'>Melee</span></td><td>1,548.0</td><td>228.8</td><td>25.3%</td><td>34</td></tr><tr><td>Zilches</td><td><span class='badge ranged'>Ranged</span></td><td>826.0</td><td>223.7</td><td>14.6%</td><td>19</td></tr><tr><td>Deokrion</td><td><span class='badge ranged'>Ranged</span></td><td>251.0</td><td>124.3</td><td>27.9%</td><td>11</td></tr><tr><td>Infex</td><td><span class='badge ranged'>Ranged</span></td><td>15.0</td><td>4.3</td><td>0.5%</td><td>18</td></tr><tr><td>Morphmonga</td><td><span class='badge ranged'>Ranged</span></td><td>0.0</td><td>0.0</td><td>10.5%</td><td>4</td></tr></tbody>
-        </table>
-      </section>
-            
-      <section class='panel'>
-        <div class='panel-header'>
-          <h3>33. Anubisath Warrior</h3>
-          <div class='fight-meta'>GUID: 0xF130003CB1279465 • 19.7s • 97 snapshots</div>
-        </div>
-        <table>
-          <thead><tr><th>Player</th><th>Role</th><th>Threat Done</th><th>TPS</th><th>Avg Top %</th><th>Samples</th></tr></thead>
-          <tbody><tr><td>Deokrion</td><td><span class='badge tank'>Tank</span></td><td>7,490.0</td><td>379.7</td><td>97.4%</td><td>94</td></tr><tr><td>Infex</td><td><span class='badge ranged'>Ranged</span></td><td>5,947.0</td><td>301.5</td><td>33.5%</td><td>77</td></tr><tr><td>Drevn</td><td><span class='badge melee'>Melee</span></td><td>4,722.0</td><td>240.8</td><td>56.9%</td><td>96</td></tr><tr><td>Paikeen</td><td><span class='badge melee'>Melee</span></td><td>2,446.0</td><td>142.5</td><td>28.9%</td><td>84</td></tr><tr><td>Rotpotato</td><td><span class='badge ranged'>Ranged</span></td><td>270.0</td><td>123.4</td><td>23.3%</td><td>12</td></tr><tr><td>Helstar</td><td><span class='badge tank'>Tank</span></td><td>0.0</td><td>0.0</td><td>100.0%</td><td>1</td></tr><tr><td>Cnatsplel</td><td><span class='badge ranged'>Ranged</span></td><td>0.0</td><td>0.0</td><td>24.1%</td><td>1</td></tr><tr><td>Syilver</td><td><span class='badge melee'>Melee</span></td><td>0.0</td><td>0.0</td><td>10.2%</td><td>3</td></tr></tbody>
-        </table>
-      </section>
-            
-      <section class='panel'>
-        <div class='panel-header'>
-          <h3>34. Anubisath Warrior</h3>
-          <div class='fight-meta'>GUID: 0xF130003CB1279466 • 12.3s • 61 snapshots</div>
-        </div>
-        <table>
-          <thead><tr><th>Player</th><th>Role</th><th>Threat Done</th><th>TPS</th><th>Avg Top %</th><th>Samples</th></tr></thead>
-          <tbody><tr><td>Helstar</td><td><span class='badge tank'>Tank</span></td><td>8,967.0</td><td>729.6</td><td>100.0%</td><td>61</td></tr><tr><td>Airmiles</td><td><span class='badge ranged'>Ranged</span></td><td>2,279.0</td><td>222.2</td><td>15.7%</td><td>50</td></tr><tr><td>Infex</td><td><span class='badge ranged'>Ranged</span></td><td>1,858.0</td><td>260.7</td><td>20.9%</td><td>36</td></tr><tr><td>Deokrion</td><td><span class='badge melee'>Melee</span></td><td>1,624.0</td><td>203.7</td><td>11.6%</td><td>15</td></tr><tr><td>Morphmonga</td><td><span class='badge ranged'>Ranged</span></td><td>863.0</td><td>468.3</td><td>25.5%</td><td>8</td></tr><tr><td>Syilver</td><td><span class='badge ranged'>Ranged</span></td><td>395.0</td><td>105.0</td><td>10.4%</td><td>19</td></tr><tr><td>Paikeen</td><td><span class='badge ranged'>Ranged</span></td><td>45.0</td><td>24.3</td><td>4.5%</td><td>10</td></tr><tr><td>Dairytotem</td><td><span class='badge ranged'>Ranged</span></td><td>0.0</td><td>0.0</td><td>9.2%</td><td>20</td></tr></tbody>
-        </table>
-      </section>
-            
-      <section class='panel'>
-        <div class='panel-header'>
-          <h3>35. Anubisath Guardian</h3>
-          <div class='fight-meta'>GUID: 0xF130003BFB11FBE0 • 14.0s • 69 snapshots</div>
-        </div>
-        <table>
-          <thead><tr><th>Player</th><th>Role</th><th>Threat Done</th><th>TPS</th><th>Avg Top %</th><th>Samples</th></tr></thead>
-          <tbody><tr><td>Helstar</td><td><span class='badge tank'>Tank</span></td><td>7,758.0</td><td>552.6</td><td>100.0%</td><td>69</td></tr><tr><td>Cnatsplel</td><td><span class='badge melee'>Melee</span></td><td>4,624.0</td><td>373.7</td><td>33.2%</td><td>38</td></tr><tr><td>Infex</td><td><span class='badge ranged'>Ranged</span></td><td>3,132.0</td><td>343.6</td><td>23.9%</td><td>45</td></tr><tr><td>Deokrion</td><td><span class='badge melee'>Melee</span></td><td>2,348.0</td><td>215.2</td><td>27.6%</td><td>51</td></tr><tr><td>Drevn</td><td><span class='badge melee'>Melee</span></td><td>1,194.0</td><td>487.3</td><td>45.0%</td><td>12</td></tr><tr><td>Airmiles</td><td><span class='badge ranged'>Ranged</span></td><td>1,080.0</td><td>251.6</td><td>29.9%</td><td>10</td></tr><tr><td>Qyii</td><td><span class='badge melee'>Melee</span></td><td>981.0</td><td>335.2</td><td>29.8%</td><td>15</td></tr><tr><td>Rotpotato</td><td><span class='badge ranged'>Ranged</span></td><td>203.0</td><td>285.5</td><td>33.0%</td><td>2</td></tr><tr><td>Morphmonga</td><td><span class='badge ranged'>Ranged</span></td><td>0.0</td><td>0.0</td><td>6.0%</td><td>5</td></tr><tr><td>Paikeen</td><td><span class='badge ranged'>Ranged</span></td><td>0.0</td><td>0.0</td><td>8.3%</td><td>1</td></tr></tbody>
-        </table>
-      </section>
-            
-      <section class='panel'>
-        <div class='panel-header'>
-          <h3>36. Hive&#x27;Zara Stinger</h3>
-          <div class='fight-meta'>GUID: 0xF130003BDF11FBC7 • 11.9s • 58 snapshots</div>
-        </div>
-        <table>
-          <thead><tr><th>Player</th><th>Role</th><th>Threat Done</th><th>TPS</th><th>Avg Top %</th><th>Samples</th></tr></thead>
-          <tbody><tr><td>Infex</td><td><span class='badge melee'>Melee</span></td><td>3,784.0</td><td>539.2</td><td>86.4%</td><td>35</td></tr><tr><td>Deokrion</td><td><span class='badge melee'>Melee</span></td><td>3,270.0</td><td>275.7</td><td>71.2%</td><td>57</td></tr><tr><td>Shadowfisk</td><td><span class='badge melee'>Melee</span></td><td>2,051.0</td><td>175.9</td><td>60.8%</td><td>57</td></tr><tr><td>Helstar</td><td><span class='badge tank'>Tank</span></td><td>1,316.0</td><td>111.0</td><td>84.0%</td><td>58</td></tr><tr><td>Syilver</td><td><span class='badge melee'>Melee</span></td><td>158.0</td><td>107.6</td><td>30.2%</td><td>2</td></tr></tbody>
-        </table>
-      </section>
-            
-      <section class='panel'>
-        <div class='panel-header'>
-          <h3>37. Hive&#x27;Zara Stinger</h3>
-          <div class='fight-meta'>GUID: 0xF130003BDF11FBDA • 14.1s • 69 snapshots</div>
-        </div>
-        <table>
-          <thead><tr><th>Player</th><th>Role</th><th>Threat Done</th><th>TPS</th><th>Avg Top %</th><th>Samples</th></tr></thead>
-          <tbody><tr><td>Infex</td><td><span class='badge melee'>Melee</span></td><td>4,998.0</td><td>353.5</td><td>65.8%</td><td>69</td></tr><tr><td>Deokrion</td><td><span class='badge tank'>Tank</span></td><td>4,680.0</td><td>331.0</td><td>89.5%</td><td>43</td></tr><tr><td>Cnatsplel</td><td><span class='badge melee'>Melee</span></td><td>2,185.0</td><td>311.7</td><td>62.5%</td><td>34</td></tr><tr><td>Rotpotato</td><td><span class='badge melee'>Melee</span></td><td>1,991.0</td><td>151.3</td><td>76.6%</td><td>64</td></tr><tr><td>Shadowfisk</td><td><span class='badge melee'>Melee</span></td><td>1,462.0</td><td>150.2</td><td>64.7%</td><td>36</td></tr><tr><td>Morphmonga</td><td><span class='badge melee'>Melee</span></td><td>745.0</td><td>111.6</td><td>66.6%</td><td>26</td></tr><tr><td>Syilver</td><td><span class='badge melee'>Melee</span></td><td>148.0</td><td>170.7</td><td>52.3%</td><td>4</td></tr></tbody>
-        </table>
-      </section>
-            
-      <section class='panel'>
-        <div class='panel-header'>
-          <h3>38. Hive&#x27;Zara Stinger</h3>
-          <div class='fight-meta'>GUID: 0xF130003BDF11FBC9 • 17.2s • 84 snapshots</div>
-        </div>
-        <table>
-          <thead><tr><th>Player</th><th>Role</th><th>Threat Done</th><th>TPS</th><th>Avg Top %</th><th>Samples</th></tr></thead>
-          <tbody><tr><td>Helstar</td><td><span class='badge melee'>Melee</span></td><td>6,509.0</td><td>392.4</td><td>64.1%</td><td>54</td></tr><tr><td>Deokrion</td><td><span class='badge melee'>Melee</span></td><td>5,829.0</td><td>402.1</td><td>78.8%</td><td>71</td></tr><tr><td>Infex</td><td><span class='badge melee'>Melee</span></td><td>5,147.0</td><td>381.9</td><td>82.9%</td><td>66</td></tr><tr><td>Cnatsplel</td><td><span class='badge melee'>Melee</span></td><td>2,567.0</td><td>156.9</td><td>49.2%</td><td>69</td></tr><tr><td>Shadowfisk</td><td><span class='badge melee'>Melee</span></td><td>1,632.0</td><td>176.4</td><td>25.2%</td><td>26</td></tr><tr><td>Morphmonga</td><td><span class='badge melee'>Melee</span></td><td>745.0</td><td>112.9</td><td>22.0%</td><td>12</td></tr><tr><td>Paikeen</td><td><span class='badge melee'>Melee</span></td><td>256.0</td><td>104.2</td><td>51.1%</td><td>13</td></tr></tbody>
-        </table>
-      </section>
-            
-      <section class='panel'>
-        <div class='panel-header'>
-          <h3>39. Hive&#x27;Zara Stinger</h3>
-          <div class='fight-meta'>GUID: 0xF130003BDF11FBC1 • 16.3s • 80 snapshots</div>
-        </div>
-        <table>
-          <thead><tr><th>Player</th><th>Role</th><th>Threat Done</th><th>TPS</th><th>Avg Top %</th><th>Samples</th></tr></thead>
-          <tbody><tr><td>Drevn</td><td><span class='badge tank'>Tank</span></td><td>7,423.0</td><td>511.9</td><td>92.6%</td><td>71</td></tr><tr><td>Deokrion</td><td><span class='badge melee'>Melee</span></td><td>5,040.0</td><td>328.6</td><td>79.6%</td><td>69</td></tr><tr><td>Infex</td><td><span class='badge melee'>Melee</span></td><td>4,589.0</td><td>382.0</td><td>50.0%</td><td>59</td></tr><tr><td>Helstar</td><td><span class='badge melee'>Melee</span></td><td>4,160.0</td><td>254.8</td><td>65.5%</td><td>80</td></tr><tr><td>Paikeen</td><td><span class='badge melee'>Melee</span></td><td>137.0</td><td>92.7</td><td>46.1%</td><td>8</td></tr><tr><td>Stoneclaw Totem VI</td><td><span class='badge ranged'>Ranged</span></td><td>0.0</td><td>0.0</td><td>2.9%</td><td>2</td></tr></tbody>
-        </table>
-      </section>
-            
-      <section class='panel'>
-        <div class='panel-header'>
-          <h3>40. Ayamiss the Hunter</h3>
-          <div class='fight-meta'>GUID: 0xF130003C0901630B • 61.3s • 298 snapshots</div>
-        </div>
-        <table>
-          <thead><tr><th>Player</th><th>Role</th><th>Threat Done</th><th>TPS</th><th>Avg Top %</th><th>Samples</th></tr></thead>
-          <tbody><tr><td>Infex</td><td><span class='badge tank'>Tank</span></td><td>14,039.0</td><td>255.2</td><td>91.9%</td><td>261</td></tr><tr><td>Shadowfisk</td><td><span class='badge ranged'>Ranged</span></td><td>13,657.0</td><td>238.7</td><td>73.2%</td><td>251</td></tr><tr><td>Cnatsplel</td><td><span class='badge ranged'>Ranged</span></td><td>12,908.0</td><td>210.5</td><td>42.2%</td><td>22</td></tr><tr><td>Rotpotato</td><td><span class='badge ranged'>Ranged</span></td><td>12,330.0</td><td>226.4</td><td>75.6%</td><td>235</td></tr><tr><td>Helstar</td><td><span class='badge melee'>Melee</span></td><td>11,235.0</td><td>382.2</td><td>83.4%</td><td>65</td></tr><tr><td>Deokrion</td><td><span class='badge melee'>Melee</span></td><td>10,074.0</td><td>194.6</td><td>61.8%</td><td>80</td></tr><tr><td>Morphmonga</td><td><span class='badge melee'>Melee</span></td><td>5,348.0</td><td>358.3</td><td>73.3%</td><td>28</td></tr><tr><td>Paikeen</td><td><span class='badge ranged'>Ranged</span></td><td>2,956.0</td><td>86.9</td><td>62.7%</td><td>77</td></tr><tr><td>Drevn</td><td><span class='badge melee'>Melee</span></td><td>2,213.0</td><td>436.9</td><td>89.6%</td><td>25</td></tr><tr><td>Qyii</td><td><span class='badge ranged'>Ranged</span></td><td>1,894.0</td><td>80.3</td><td>45.8%</td><td>84</td></tr><tr><td>Zilches</td><td><span class='badge melee'>Melee</span></td><td>632.0</td><td>239.4</td><td>67.3%</td><td>11</td></tr><tr><td>Dairytotem</td><td><span class='badge ranged'>Ranged</span></td><td>0.0</td><td>0.0</td><td>55.4%</td><td>6</td></tr><tr><td>Syilver</td><td><span class='badge ranged'>Ranged</span></td><td>0.0</td><td>0.0</td><td>60.5%</td><td>3</td></tr></tbody>
-        </table>
-      </section>
-            
-      <section class='panel'>
-        <div class='panel-header'>
-          <h3>41. Ossirian the Unscarred</h3>
-          <div class='fight-meta'>GUID: 0xF130003BEB01630D • 137.8s • 673 snapshots</div>
-        </div>
-        <table>
-          <thead><tr><th>Player</th><th>Role</th><th>Threat Done</th><th>TPS</th><th>Avg Top %</th><th>Samples</th></tr></thead>
-          <tbody><tr><td>Deokrion</td><td><span class='badge tank'>Tank</span></td><td>62,105.0</td><td>463.2</td><td>83.7%</td><td>546</td></tr><tr><td>Helstar</td><td><span class='badge melee'>Melee</span></td><td>53,386.0</td><td>387.5</td><td>85.6%</td><td>552</td></tr><tr><td>Drevn</td><td><span class='badge melee'>Melee</span></td><td>35,854.0</td><td>441.3</td><td>48.7%</td><td>311</td></tr><tr><td>Cnatsplel</td><td><span class='badge melee'>Melee</span></td><td>32,303.0</td><td>457.0</td><td>51.5%</td><td>188</td></tr><tr><td>Infex</td><td><span class='badge ranged'>Ranged</span></td><td>19,695.0</td><td>198.7</td><td>21.7%</td><td>484</td></tr><tr><td>Shadowfisk</td><td><span class='badge ranged'>Ranged</span></td><td>2,190.0</td><td>184.1</td><td>13.7%</td><td>43</td></tr><tr><td>Paikeen</td><td><span class='badge ranged'>Ranged</span></td><td>2,155.0</td><td>50.7</td><td>7.4%</td><td>197</td></tr><tr><td>Syilver</td><td><span class='badge ranged'>Ranged</span></td><td>1,790.0</td><td>138.8</td><td>15.6%</td><td>62</td></tr><tr><td>Taoz</td><td><span class='badge ranged'>Ranged</span></td><td>254.0</td><td>13.1</td><td>4.7%</td><td>47</td></tr><tr><td>Zilches</td><td><span class='badge tank'>Tank</span></td><td>0.0</td><td>0.0</td><td>100.0%</td><td>14</td></tr><tr><td>Dairytotem</td><td><span class='badge melee'>Melee</span></td><td>0.0</td><td>0.0</td><td>0.8%</td><td>3</td></tr></tbody>
+          <tbody><tr><td>Infex</td><td><span class='badge dps'>DPS</span></td><td>19,695.0</td><td>198.7</td><td>21.7%</td><td>484</td></tr></tbody>
         </table>
       </section>
             
