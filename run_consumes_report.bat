@@ -20,9 +20,9 @@ if not exist "%LOGFILE%" (
 REM === TIMESTAMPED OUTPUT FOLDER ===
 for /f %%i in ('powershell -NoProfile -Command "Get-Date -Format yyyy-MM-dd_HHmmss"') do set "TS=%%i"
 set "OUTDIR=%CD%\reports\%TS%"
-mkdir "%OUTDIR%" >nul 2>&1
+mkdir "%OUTDIR%\" >nul 2>&1
 
-echo [INFO] Output: "%OUTDIR%"
+echo [INFO] Output: "%OUTDIR%\"
 
 REM === RUN summarize_consumes ===
 REM Writes:
@@ -38,25 +38,25 @@ if errorlevel 1 (
 )
 
 REM === MOVE OUTPUTS INTO REPORT FOLDER (if they exist) ===
-if exist "summary.txt" move /y "summary.txt" "%OUTDIR%\summary.txt" >nul
-if exist "consumable-totals.csv" move /y "consumable-totals.csv" "%OUTDIR%\consumable-totals.csv" >nul
-if exist "prices-web.json" move /y "prices-web.json" "%OUTDIR%\prices-web.json" >nul
+if exist "summary.txt" move /y "summary.txt" "%OUTDIR%\\summary.txt" >nul
+if exist "consumable-totals.csv" move /y "consumable-totals.csv" "%OUTDIR%\\consumable-totals.csv" >nul
+if exist "prices-web.json" move /y "prices-web.json" "%OUTDIR%\\prices-web.json" >nul
 
 REM === DISCORD CARD (HTML -> PNG) ===
 set "GUILDNAME=YOUR GUILD NAME"
 
-python "%CD%\discord_card.py" "%OUTDIR%\consumable-totals.csv" "%OUTDIR%\discord-card.html" "%LOGFILE%" "Benig" "%OUTDIR%\summary.txt" --full-report "%OUTDIR%\raid-report.html"
+python "%CD%\discord_card.py" "%OUTDIR%\\consumable-totals.csv" "%OUTDIR%\\discord-card.html" "%LOGFILE%" "Benig" "%OUTDIR%\\summary.txt" --full-report "%OUTDIR%\\raid-report.html"
 
 REM Edge headless screenshot (most Windows installs)
 set "EDGE=%ProgramFiles(x86)%\Microsoft\Edge\Application\msedge.exe"
 if not exist "%EDGE%" set "EDGE=%ProgramFiles%\Microsoft\Edge\Application\msedge.exe"
 
 if exist "%EDGE%" (
-  "%EDGE%" --headless --disable-gpu --window-size=1600,900 --screenshot="%OUTDIR%\discord-card.png" "file:///%OUTDIR:\=/%/discord-card.html"
-  echo [INFO] Discord PNG created: %OUTDIR%\discord-card.png
+  "%EDGE%" --headless --disable-gpu --window-size=1600,900 --screenshot="%OUTDIR%\\discord-card.png" "file:///%OUTDIR:\=/%/discord-card.html"
+  echo [INFO] Discord PNG created: %OUTDIR%\\discord-card.png
   
   REM Crop PNG manually: top right bottom left (in pixels)
-  python "%CD%\crop_png_manual.py" "%OUTDIR%\discord-card.png" "%OUTDIR%\discord-card.png" 0 400 285 0
+  python "%CD%\crop_png_manual.py" "%OUTDIR%\\discord-card.png" "%OUTDIR%\\discord-card.png" 0 400 285 0
   if errorlevel 1 (
     echo [WARN] PNG cropping failed - Pillow missing? Install with: pip install Pillow
   ) else (
@@ -67,21 +67,36 @@ if exist "%EDGE%" (
 )
 
 REM Keep a copy of the log used for traceability (optional)
-copy /y "%LOGFILE%" "%OUTDIR%\WoWCombatLog.txt" >nul
+copy /y "%LOGFILE%" "%OUTDIR%\\WoWCombatLog.txt" >nul
 
 REM === VISUALIZE ===
 REM Requires Python in PATH. If not installed, the CSV will still be usable in Excel.
 echo [INFO] Creating HTML report...
-python "%CD%\visualize_consumes.py" "%OUTDIR%\consumable-totals.csv" "%OUTDIR%\report.html"
+python "%CD%\visualize_consumes.py" "%OUTDIR%\\consumable-totals.csv" "%OUTDIR%\\report.html"
 
 if errorlevel 1 (
   echo [WARN] Visualization failed (Python missing?). Opening folder anyway.
 ) else (
-  echo [INFO] Report created: %OUTDIR%\report.html
-  start "" "%OUTDIR%\report.html"
+  echo [INFO] Report created: %OUTDIR%\\report.html
+  start "" "%OUTDIR%\\report.html"
+)
+
+
+REM === TWTHREAT REPORT ===
+REM Parses ThreatLogs\TWThreatThreatLog*_part*.txt* and writes a themed raid threat report.
+if exist "%CD%\generate_threat_report.py" (
+  echo [INFO] Creating TWThreat report...
+  python "%CD%\generate_threat_report.py" --log-dir "%CD%\ThreatLogs" --output "%OUTDIR%\raid-threat-report.html"
+  if errorlevel 1 (
+    echo [WARN] TWThreat report generation failed.
+  ) else (
+    echo [INFO] TWThreat report created: %OUTDIR%\raid-threat-report.html
+  )
+) else (
+  echo [WARN] generate_threat_report.py not found. Skipping TWThreat report.
 )
 
 REM Always open the output folder
-start "" "%OUTDIR%"
+start "" "%OUTDIR%\"
 echo [DONE]
 endlocal
