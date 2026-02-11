@@ -52,7 +52,7 @@ if exist "prices-web.json" move /y "prices-web.json" "%OUTDIR%\\prices-web.json"
 REM === DISCORD CARD (HTML -> PNG) ===
 set "GUILDNAME=YOUR GUILD NAME"
 
-python "%CD%\discord_card.py" "%OUTDIR%\\consumable-totals.csv" "%OUTDIR%\\discord-card.html" "%LOGFILE%" "Benig" "%OUTDIR%\\summary.txt" --full-report "%OUTDIR%\\raid-report.html"
+python "%CD%\discord_card.py" "%OUTDIR%\\consumable-totals.csv" "%OUTDIR%\\discord-card.html" "%LOGFILE%" "Tyrchast" "%OUTDIR%\\summary.txt" --full-report "%OUTDIR%\\raid-report.html"
 
 REM Edge headless screenshot (most Windows installs)
 set "EDGE=%ProgramFiles(x86)%\Microsoft\Edge\Application\msedge.exe"
@@ -67,7 +67,7 @@ if exist "%EDGE%" (
     echo [INFO] Raid report PNG created: %OUTDIR%\\raid-report.png
 
     REM Crop raid report PNG manually: top right bottom left (in pixels)
-    python "%CD%\crop_png_manual.py" "%OUTDIR%\raid-report.png" "%OUTDIR%\raid-report.png" 0 600 200 0
+    python "%CD%\crop_png_manual.py" "%OUTDIR%\raid-report.png" "%OUTDIR%\raid-report.png" 0 600 780 0
     if errorlevel 1 (
       echo [WARN] Raid report PNG cropping failed - Pillow missing? Install with: pip install Pillow
     ) else (

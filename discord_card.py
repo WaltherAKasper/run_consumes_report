@@ -408,7 +408,7 @@ def detect_raid_from_log(log_path: Path) -> str:
         "onyxia": "Onyxia's Lair", 
         "molten": "Molten Core",
         "blackwing": "Blackwing Lair",
-        "aq40": "Temple of Ahn'Qiraj",
+        "ahn'qiraj": "Temple of Ahn'Qiraj",
         "aq20": "Ruins of Ahn'Qiraj",
         "zulgurub": "Zul'Gurub",
         "zulaman": "Zul'Aman",
@@ -502,17 +502,26 @@ def parse_sunder_data(summary_path: Path) -> list[tuple[str, int, int]]:
                     if not line[0].isspace():
                         break
                     
-                    # Parse: "   Name trash_count boss_count"
-                    parts = stripped.split()
-                    if len(parts) >= 3:
-                        name = parts[0]
-                        trash = safe_int(parts[1], 0)
-                        boss = safe_int(parts[2], 0)
-                        sunders.append((name, trash, boss))
-                    elif len(parts) == 2:
-                        name = parts[0]
-                        total = safe_int(parts[1], 0)
-                        sunders.append((name, total, 0))
+                    # Parse line with resilient number extraction to support cases where
+                    # one of the columns is omitted when it is zero.
+                    parts = stripped.split(maxsplit=1)
+                    if not parts:
+                        continue
+
+                    name = parts[0]
+                    remainder = parts[1] if len(parts) > 1 else ""
+                    values = [safe_int(match, 0) for match in re.findall(r"-?\d+", remainder)]
+
+                    if len(values) >= 2:
+                        trash, boss = values[0], values[1]
+                    elif len(values) == 1:
+                        # If only one value exists, treat it as total and map it to boss.
+                        # This preserves old behavior and keeps total calculations accurate.
+                        trash, boss = 0, values[0]
+                    else:
+                        trash, boss = 0, 0
+
+                    sunders.append((name, trash, boss))
     except Exception as e:
         print(f"[WARN] Could not parse sunder data: {e}")
     
@@ -569,13 +578,14 @@ def generate_html(
     # Build sunder race HTML
     sunder_html = ""
     if sunder_data:
-        sorted_sunders = sorted(sunder_data, key=lambda x: x[2], reverse=True)[:5]
-        max_boss_sunders = sorted_sunders[0][2] if sorted_sunders else 1
+        sorted_sunders = sorted(sunder_data, key=lambda x: x[1] + x[2], reverse=True)[:5]
+        max_total_sunders = (sorted_sunders[0][1] + sorted_sunders[0][2]) if sorted_sunders else 1
         
         sunder_rows = ""
         medals = ["🥇", "🥈", "🥉", "4", "5"]
         for i, (name, trash, boss) in enumerate(sorted_sunders):
-            bar_width = int((boss / max_boss_sunders) * 100) if max_boss_sunders > 0 else 0
+            total = trash + boss
+            bar_width = int((total / max_total_sunders) * 100) if max_total_sunders > 0 else 0
             medal = medals[i] if i < len(medals) else str(i + 1)
             medal_class = f"medal-{i+1}" if i < 3 else ""
             sunder_rows += f'''
@@ -585,12 +595,12 @@ def generate_html(
               <div class="sunder-bar-container">
                 <div class="sunder-bar" style="width: {bar_width}%"></div>
               </div>
-              <span class="sunder-count">{boss}</span>
+              <span class="sunder-count">{total}</span>
             </div>'''
         
         sunder_html = f'''
         <div class="sunder-race">
-          <h3>⚔️ Sunder Race <span class="sunder-subtitle">(boss sunders)</span></h3>
+          <h3>⚔️ Sunder Race <span class="sunder-subtitle">(total sunders)</span></h3>
           <div class="sunder-list">
             {sunder_rows}
           </div>
@@ -1154,12 +1164,13 @@ def generate_full_report_html(
 
     sunder_html = ""
     if sunder_data:
-        sorted_sunders = sorted(sunder_data, key=lambda x: x[2], reverse=True)[:10]
-        max_boss_sunders = sorted_sunders[0][2] if sorted_sunders else 1
+        sorted_sunders = sorted(sunder_data, key=lambda x: x[1] + x[2], reverse=True)[:10]
+        max_total_sunders = (sorted_sunders[0][1] + sorted_sunders[0][2]) if sorted_sunders else 1
         sunder_rows = ""
         medals = ["🥇", "🥈", "🥉"] + [str(i) for i in range(4, 11)]
         for i, (name, trash, boss) in enumerate(sorted_sunders):
-            bar_width = int((boss / max_boss_sunders) * 100) if max_boss_sunders > 0 else 0
+            total = trash + boss
+            bar_width = int((total / max_total_sunders) * 100) if max_total_sunders > 0 else 0
             medal = medals[i] if i < len(medals) else str(i + 1)
             medal_class = f"medal-{i+1}" if i < 3 else ""
             sunder_rows += f'''
@@ -1169,12 +1180,12 @@ def generate_full_report_html(
               <div class="sunder-bar-container">
                 <div class="sunder-bar" style="width: {bar_width}%"></div>
               </div>
-              <span class="sunder-count">{boss}</span>
+              <span class="sunder-count">{total}</span>
             </div>'''
 
         sunder_html = f'''
         <div class="sunder-race full">
-          <h3>⚔️ Sunder Race <span class="sunder-subtitle">(boss sunders)</span></h3>
+          <h3>⚔️ Sunder Race <span class="sunder-subtitle">(total sunders)</span></h3>
           <div class="sunder-list">
             {sunder_rows}
           </div>
